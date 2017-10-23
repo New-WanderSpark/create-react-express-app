@@ -1,25 +1,24 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const logger = require('morgan');
-const routes = require('./routes');
-
+const express = require( 'express' );
+const bodyParser = require( 'body-parser' );
+const mongoose = require( 'mongoose' );
+const logger = require( 'morgan' );
+const routes = require( './routes' );
 
 // Configure Express Sever
 const PORT = process.env.PORT || 3001;
 const app = express();
-app.use(logger('dev'));
-app.use(bodyParser.json());
+app.use( logger( 'dev' ) );
+app.use( bodyParser.json() );
 
 // Connect mongoose to database
 mongoose.Promise = global.Promise;
 mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb://localhost/wanderSpark_dev',
-  { useMongoClient: true }
+    process.env.MONGODB_URI || 'mongodb://localhost/wanderSpark_dev',
+    { 'useMongoClient': true }
 );
 
-app.use(routes);
+app.use( routes );
 
-app.listen(PORT, () => {
-  console.log(`🌎 ==> Server now on port ${PORT}!`);
-});
+app.listen( PORT, () => {
+    console.log( `🌎 ==> Server now on port ${PORT}!` );
+} );
