@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import PlacesSearchComponent from './placesSearch/PlacesSearchContainer';
 
 class App extends Component {
     render () {
@@ -12,10 +13,11 @@ class App extends Component {
                 </div>
                 <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
-                </p>
-            </div>
-        );
-    }
+        </p>
+        <PlacesSearchComponent />
+      </div>
+    );
+  }
 }
 
 export default App;
