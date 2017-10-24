@@ -16,8 +16,7 @@ class ResultItemContainer extends Component {
         const { place } = this.props;
         return (
             <ResultItem
-                title={place.title}
-                address={place.address}
+                place={place}
                 handleViewClick={event => this.handleViewClick( event, place )}
                 handlePinClick={event => this.handlePinClick( event, place )}
             />
