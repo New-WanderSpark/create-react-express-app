@@ -2227,6 +2227,10 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-google-login-component@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/react-google-login-component/-/react-google-login-component-0.9.1.tgz#130934afa3445bf22ea896d58c4f2d5e38fe3c0d"
+
 read-pkg-up@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/read-pkg-up/-/read-pkg-up-2.0.0.tgz#6b72a8048984e0c41e79510fd5e9fa99b3b549be"
