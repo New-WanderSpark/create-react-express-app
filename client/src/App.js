@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
+// import './App.css';
 import './components/searchbtn/searchbtn.css';
 import './components/userFAB/userFAB.css';
 import './components/Footer/Footer.css'; 
@@ -9,7 +9,7 @@ import Wrapper from "./components/Wrapper";
 import Banner from "./components/Banner";
 import Corkboard from "./components/Corkboard";
 import { Button, Icon, SideNav, SideNavItem, Footer } from 'react-materialize';
-import PlacesSearchComponent from './placesSearch/PlacesSearchContainer';
+import PlacesSearchComponent from './components/placesSearch/PlacesSearchContainer';
 
 class App extends Component {
   render() {
