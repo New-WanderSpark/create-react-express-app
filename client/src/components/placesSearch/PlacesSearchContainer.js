@@ -57,7 +57,7 @@ class PlacesSearchContainer extends Component {
                     handleSubmit={event => this.handleSubmit( event )}
                     handleSearchChange={event => this.handleTextInputChange( event )}
                 />
-                <ResultList places={this.state.places}/>
+                <ResultList places={this.state.places} handleViewPlaceDetails={this.props.handleViewPlaceDetails} />
             </div>
         );
     }

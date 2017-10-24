@@ -10,7 +10,7 @@ class ResultItemContainer extends Component {
     }
     handleViewClick ( event, place ) {
         event.preventDefault();
-        window.alert( `View button clicked!\n${place.title}\n${place.placeId}` );
+        this.props.handleViewPlaceDetails( place );
     }
     render () {
         const { place } = this.props;
