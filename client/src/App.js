@@ -24,14 +24,17 @@ class App extends Component {
 
     // pins place to the place collection
     pinPlace ( place ) {
-        console.log( 'pin place', place.title );
+        // TODO add procedure to add the place to the collection of places pinned to the main trip area
+        // and send request to save the trip in the data base
+        window.alert( `Add place to trip:\ntitle: ${place.title}\nplaceId: ${place.placeId}` );
+        this.closePlaceDialog();
     }
 
     render () {
         return (
             <MuiThemeProvider>
                 <div>
-                    <PlacesSearchComponent handleViewPlaceDetails={place => this.showPlaceDialog( place )} />
+                    <PlacesSearchComponent handleViewPlaceDetails={place => this.showPlaceDialog( place )} handlePinPlace={place => this.pinPlace( place )} />
                     <ViewPlaceDialog
                         open={this.state.placeDialogOpen}
                         place={this.state.selectedPlace}

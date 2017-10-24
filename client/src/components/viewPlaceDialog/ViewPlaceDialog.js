@@ -11,14 +11,12 @@ export default class ViewPlaceDialog extends React.Component {
         const actions = [
             <FlatButton
                 label="Close"
-                primary={true}
                 onClick={() => this.props.handleClose()}
             />,
             <FlatButton
                 label="Pin"
                 primary={true}
-                disabled={true}
-                onClick={() => this.props.handlePin()}
+                onClick={() => this.props.handlePin( this.props.place )}
             />
         ];
 

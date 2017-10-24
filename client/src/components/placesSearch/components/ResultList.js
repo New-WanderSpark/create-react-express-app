@@ -4,7 +4,7 @@ import React from 'react';
 import ResultItemContainer from '../containers/ResultItemContainer';
 
 export default function ResultList ( props ) {
-    const { handleViewPlaceDetails, places } = props;
+    const { handlePinPlace, handleViewPlaceDetails, places } = props;
     return (
         <ul style={{ 'textAlign': 'left' }}>
             {
@@ -13,6 +13,7 @@ export default function ResultList ( props ) {
                         key={place.placeId}
                         place={place}
                         handleViewPlaceDetails={handleViewPlaceDetails}
+                        handlePinPlace={handlePinPlace}
                     />;
                 } ) : ''
             }

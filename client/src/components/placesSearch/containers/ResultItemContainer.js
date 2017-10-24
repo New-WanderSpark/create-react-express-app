@@ -6,7 +6,7 @@ import ResultItem from '../components/ResultItem/ResultItem';
 class ResultItemContainer extends Component {
     handlePinClick ( event, place ) {
         event.preventDefault();
-        window.alert( `Pin button clicked!\nplaceId = ${place.placeId}` );
+        this.props.handlePinPlace( place );
     }
     handleViewClick ( event, place ) {
         event.preventDefault();
