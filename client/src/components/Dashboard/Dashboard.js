@@ -10,7 +10,7 @@ import Footer from '../Footer';
 class Dashboard extends Component {
     render () {
         return (
-            <div>
+            <div className='workdesk'>
                 <SearchMenu />
                 <UserFAB />
                 <Banner />
