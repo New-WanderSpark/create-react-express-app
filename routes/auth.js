@@ -9,7 +9,7 @@ const router = new express.Router();
  *
  * @param {object} payload - the HTTP body message
  * @returns {object} The result of validation. Object contains a boolean validation result,
- *                   errors tips, and a global message for the whole form.
+ * errors tips, and a global message for the whole form.
  */
 function validateSignupForm ( payload ) {
     const errors = {};
@@ -42,7 +42,7 @@ function validateSignupForm ( payload ) {
  *
  * @param {object} payload - the HTTP body message
  * @returns {object} The result of validation. Object contains a boolean validation result,
- *                   errors tips, and a global message for the whole form.
+ * errors tips, and a global message for the whole form.
  */
 function validateLoginForm ( payload ) {
     const errors = {};
@@ -83,8 +83,10 @@ router.post( '/signup', ( req, res, next ) => {
     return passport.authenticate( 'local-signup', ( err ) => {
         if ( err ) {
             if ( err.name === 'MongoError' && err.code === 11000 ) {
-                // the 11000 Mongo code is for a duplication email error
-                // the 409 HTTP status code is for conflict error
+                /*
+                * the 11000 Mongo code is for a duplication email error
+                * the 409 HTTP status code is for conflict error
+                */
                 return res.status( 409 ).json( {
                     'success': false,
                     'message': 'Check the form for errors.',
