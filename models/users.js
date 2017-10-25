@@ -32,6 +32,10 @@ const userSchema = new Schema( {
     'lastLogin': {
         'type': Date,
         'default': Date.now
+    },
+    'photos': {
+        'type': Schema.Types.Mixed,
+        'default': {}
     }
 } );
 
