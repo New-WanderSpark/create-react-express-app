@@ -1,9 +1,9 @@
 import React from "react";
-import "./searchMenu.css";
+import "./SearchMenu.css";
 import { Button, SideNav, SideNavItem } from 'react-materialize';
 // import PlacesSearchComponent from './placesSearch/PlacesSearchContainer';
 
-const searchMenu = ( { placeSearch } ) =>
+const SearchMenu = () =>
   <SideNav
     trigger={<Button floating large className='searchbtn' waves='light' icon='add' />}
     options={{ closeOnClick: true }}
@@ -28,4 +28,4 @@ const searchMenu = ( { placeSearch } ) =>
     {/* <PlacesSearchComponent /> */}
   </SideNav>
 
-export default searchMenu;
+export default SearchMenu;

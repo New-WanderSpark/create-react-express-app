@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './Dashboard.css';
-import searchMenu from '../searchMenu';
-import userFAB from '../userFAB';
-import Banner from '../Banner';
-import Corkboard from '../Corkboard';
-import Footer from '../Footer';
+import SearchMenu from "../SearchMenu";
+import UserFAB from "../UserFAB";
+import Banner from "../Banner";
+import Corkboard from "../Corkboard";
+import Footer from "../Footer";
+
+class Dashboard extends Component {
+  render() {
+    return (
+      <div>
+        <SearchMenu />
+        <UserFAB />
+        <Banner />
+        <Corkboard />
+        <Footer />
+    </div>
+    );
+  }
+}
 
 function Dashboard () {
     return (
