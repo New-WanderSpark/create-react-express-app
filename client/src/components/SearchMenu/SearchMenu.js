@@ -4,12 +4,11 @@ import { Button, SideNav, SideNavItem } from 'react-materialize';
 import woodpanel from './woodpanel.jpg';
 // import PlacesSearchComponent from './placesSearch/PlacesSearchContainer';
 
-const SearchMenu = () =>
+const SearchMenu = ( props ) =>
     <SideNav
         trigger={<Button floating large className='searchbtn' waves='light' icon='add' />}
         options={{ 'closeOnClick': true }}
     >
-
         <SideNavItem userView
             user={{
                 'background': woodpanel,
@@ -18,14 +17,12 @@ const SearchMenu = () =>
                 'email': 'jdandturk@gmail.com'
             }}
         />
-
+        {props.children}
         <SideNavItem href='#!icon' icon='cloud'>First Link With Icon</SideNavItem>
         <SideNavItem href='#!second'>Second Link</SideNavItem>
         <SideNavItem divider />
         <SideNavItem subheader>Subheader</SideNavItem>
         <SideNavItem waves href='#!third'>Third Link With Waves</SideNavItem>
-
-        {/* <PlacesSearchComponent /> */}
     </SideNav>;
 
 export default SearchMenu;

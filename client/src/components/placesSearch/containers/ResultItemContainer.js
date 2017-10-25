@@ -6,18 +6,17 @@ import ResultItem from '../components/ResultItem/ResultItem';
 class ResultItemContainer extends Component {
     handlePinClick ( event, place ) {
         event.preventDefault();
-        window.alert( `Pin button clicked!\nplaceId = ${place.placeId}` );
+        this.props.handlePinPlace( place );
     }
     handleViewClick ( event, place ) {
         event.preventDefault();
-        window.alert( `View button clicked!\n${place.title}\n${place.placeId}` );
+        this.props.handleViewPlaceDetails( place );
     }
     render () {
         const { place } = this.props;
         return (
             <ResultItem
-                title={place.title}
-                address={place.address}
+                place={place}
                 handleViewClick={event => this.handleViewClick( event, place )}
                 handlePinClick={event => this.handlePinClick( event, place )}
             />
