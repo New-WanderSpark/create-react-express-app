@@ -1,13 +1,12 @@
-import React, {Component} from 'react';
-import {Button, Icon, Form, Row, Input, Col} from 'react-materialize';
+import React, { Component } from 'react';
+import { Button, Icon, Form, Row, Input, Col } from 'react-materialize';
+import { Link } from 'react-router-dom';
 import './loginButton.css';
 
 class LoginButton extends Component {
     render () {
         return (
-            <div>
-                <Button id="login-button" waves='light'><i class="fa fa-sign-in">Login</i></Button>
-            </div>
+            <Link to='/login'><Button className='loginBtn' waves='light'>Login<Icon left>cloud</Icon></Button></Link>
         );
     }
 }

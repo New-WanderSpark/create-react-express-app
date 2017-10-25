@@ -1,14 +1,13 @@
-import React, {Component} from "react";
-import {Button, Icon, Form, Row, Input, Col} from 'react-materialize';
+import React, { Component } from 'react';
+import { Button, Icon, Form, Row, Input, Col } from 'react-materialize';
+import { Link } from 'react-router-dom';
 
 class RegisterButton extends Component {
-  render () {
-    return (
-  <div>
-      <Button id="login-button" waves='light'><i class="fa fa-sign-in">Register</i></Button>
-  </div>
-    )
-  }
+    render () {
+        return (
+            <Link to='/register'><Button className='registerBtn' waves='light'>Register<Icon left>cloud</Icon></Button></Link>
+        );
+    }
 }
-          
+
 export default RegisterButton;
