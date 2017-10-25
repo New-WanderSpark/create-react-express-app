@@ -84,10 +84,6 @@
                 "max": 5
             }
         ],
-        "func-style": [
-            2,
-            "declaration"
-        ],
         "id-length": [
             2,
             {

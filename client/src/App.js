@@ -9,26 +9,28 @@ import Dashboard from './components/Dashboard';
 import RegisterForm from './components/LoginPage/registerForm/registerForm';
 import LoginModal from './components/LoginPage/loginModal/loginModal'
 
-// TODO:
-// * Find out if there is a way to render all components for a path with a single route component and refactor
-// * All component names and component module names should should be capitalized
-
 class App extends Component {
     render () {
         return (
             <Router>
-                <div>
-                    <Route exact={true} path="/" component={Logo}/>
-                    <Route exact={true} path="/" component={LoginButton}/>
-                    <Route exact={true} path="/" component={RegisterButton}/>
-                    <Route exact={true} path="/" component={About}/>
-                    <Route exact={true} path="/" component={RegisterForm}/>
-                    <Route exact={true} path='/' component={LoginModal}/>
+//<<<<<<< proj-3a
+                //<div>
+                    //<Route exact={true} path="/" component={Logo}/>
+                    //<Route exact={true} path="/" component={LoginButton}/>
+                    //<Route exact={true} path="/" component={RegisterButton}/>
+                    //<Route exact={true} path="/" component={About}/>
+                    //<Route exact={true} path="/" component={RegisterForm}/>
+                    //<Route exact={true} path='/' component={LoginModal}/>
                 
 
                 
                       
-                   <Route exact={true} path="/dashboard" component={Dashboard} />
+                   //<Route exact={true} path="/dashboard" component={Dashboard} />
+//=======
+                <div className='workdesk'>
+                    <Route exact={true} path='/dashboard' component={Dashboard} />
+                    <Route exact={true} path='/settings' component={Dashboard} />
+//>>>>>>> dev
                 </div>
             </Router>
         );
