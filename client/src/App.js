@@ -8,8 +8,9 @@ class App extends Component {
     render () {
         return (
             <Router>
-                <div className='background'>
+                <div className='workdesk'>
                     <Route exact={true} path="/dashboard" component={Dashboard}/>
+                    <Route exact={true} path="/settings" component={Dashboard}/>
                 </div>
             </Router>
 
