@@ -1,21 +1,23 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import React, { Component } from 'react';
 import './Dashboard.css';
-import searchMenu from "../searchMenu";
-import userFAB from "../userFAB";
+import SearchMenu from "../SearchMenu";
+import UserFAB from "../UserFAB";
 import Banner from "../Banner";
 import Corkboard from "../Corkboard";
-import footer from "../Footer";
+import Footer from "../Footer";
 
-const Dashboard = () =>
-  <Router>
-    <div>
-      <Route exact={true} path="/dashboard" component={searchMenu}/> 
-      <Route exact={true} path="/dashboard" component={userFAB}/> 
-      <Route exact={true} path="/dashboard" component={Banner}/> 
-      <Route exact={true} path="/dashboard" component={Corkboard}/>
-      <Route exact={true} path="/dashboard" component={footer}/>
+class Dashboard extends Component {
+  render() {
+    return (
+      <div>
+        <SearchMenu />
+        <UserFAB />
+        <Banner />
+        <Corkboard />
+        <Footer />
     </div>
-  </Router>;
+    );
+  }
+}
 
 export default Dashboard;
