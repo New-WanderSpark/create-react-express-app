@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
+
+// COMPONENTS
 import './Dashboard.css';
-import SearchMenu from '../SearchMenu';
-import UserFAB from '../UserFAB';
 import Banner from '../Banner';
 import Corkboard from '../Corkboard';
 import Footer from '../Footer';
-import PlacesSearchContainer from '../PlacesSearch/PlacesSearchContainer';
-import ViewPlaceDialog from '../ViewPlaceDialog';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import PlacesSearchContainer from '../PlacesSearch/PlacesSearchContainer';
+import SearchMenu from '../SearchMenu';
+import UserFAB from '../UserFAB';
+import ViewPlaceDialog from '../ViewPlaceDialog';
 
 class Dashboard extends Component {
     constructor ( props ) {
@@ -38,7 +41,7 @@ class Dashboard extends Component {
     }
     render () {
         return (
-            <div>
+            <div className='workdesk'>
                 <SearchMenu>
                     <PlacesSearchContainer
                         handleViewPlaceDetails={place => this.showPlaceDialog( place )}
@@ -47,7 +50,10 @@ class Dashboard extends Component {
                 </SearchMenu>
                 <UserFAB />
                 <Banner />
-                <Corkboard />
+                <Switch>
+                    <Route path='/dashboard' component={Corkboard}/>
+                    <Route path='/settings' component={Banner}/>
+                </Switch>
                 <Footer />
                 <MuiThemeProvider>
                     <ViewPlaceDialog
