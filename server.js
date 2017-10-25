@@ -20,7 +20,7 @@ passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
 
 // pass the authenticaion checker middleware
-const authCheckMiddleware = require('./server/middleware/auth-check');
+const authCheckMiddleware = require('./middleware/auth-check');
 app.use('/api', authCheckMiddleware);
 
 // Connect mongoose to database
@@ -30,10 +30,10 @@ mongoose.connect(
     { 'useMongoClient': true }
 );
 
+// Setup routing
 if ( process.env.NODE_ENV === 'production' ) {
     app.use( express.static( 'client/build' ) );
 }
-
 app.use( '/', routes );
 
 app.listen( PORT, () => {
