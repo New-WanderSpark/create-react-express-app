@@ -1,6 +1,7 @@
 import React from 'react';
 import './SearchMenu.css';
 import { Button, SideNav, SideNavItem } from 'react-materialize';
+import woodpanel from './woodpanel.jpg';
 // import PlacesSearchComponent from './placesSearch/PlacesSearchContainer';
 
 const SearchMenu = () =>
@@ -11,8 +12,8 @@ const SearchMenu = () =>
 
         <SideNavItem userView
             user={{
-                'background': 'img/office.jpg',
-                'image': 'img/yuna.jpg',
+                'background': woodpanel,
+                'image': woodpanel,
                 'name': 'John Doe',
                 'email': 'jdandturk@gmail.com'
             }}
