@@ -6,7 +6,8 @@ import Banner from '../Banner';
 import Corkboard from '../Corkboard';
 import Footer from '../Footer';
 import PlacesSearchContainer from '../PlacesSearch/PlacesSearchContainer';
-// import ViewPlaceDialog from '../ViewPlaceDialog';
+import ViewPlaceDialog from '../ViewPlaceDialog';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class Dashboard extends Component {
     constructor ( props ) {
@@ -20,6 +21,7 @@ class Dashboard extends Component {
     // set the current place for the place details dialog and show the dialog
     showPlaceDialog ( place ) {
         this.setState( { 'selectedPlace': place, 'placeDialogOpen': true } );
+        // this.setState( { 'selectedPlace': place } );
     }
 
     // close the place details dialog
@@ -47,12 +49,14 @@ class Dashboard extends Component {
                 <Banner />
                 <Corkboard />
                 <Footer />
-                {/* <ViewPlaceDialog
-                    open={this.state.placeDialogOpen}
-                    place={this.state.selectedPlace}
-                    handlePin={place => this.pinPlace( place )}
-                    handleClose={() => this.closePlaceDialog()}
-                /> */}
+                <MuiThemeProvider>
+                    <ViewPlaceDialog
+                        open={this.state.placeDialogOpen}
+                        place={this.state.selectedPlace}
+                        handlePin={place => this.pinPlace( place )}
+                        handleClose={() => this.closePlaceDialog()}
+                    />
+                </MuiThemeProvider>
             </div>
         );
     }
