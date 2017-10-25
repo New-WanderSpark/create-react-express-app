@@ -23,3 +23,6 @@
   to { transform: rotate(360deg); }
 }
 
+.workdesk {
+  background-image: url("./images/woodpanel.jpg");
+}
