@@ -4,10 +4,18 @@ import { Button, Icon, Form, Row, Input, Col } from 'react-materialize';
 class LoginForm extends Component {
     render () {
         return (
-            <Row>
-                <Input s={12} label="username" />
-                <Input type="password" label="password" s={12} />
-            </Row>
+            <div className="registerForm">
+                <Row>
+                    <Col s={12} m={6} l={12}>
+                        <Input s={6} label="Username" validate><Icon>account_box</Icon></Input>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col s={12} m={6} l={12}>
+                        <Input s={6} label="password" label='password'><Icon>account_box</Icon></Input>
+                    </Col>
+                </Row>
+            </div>
         );
     }
 }
