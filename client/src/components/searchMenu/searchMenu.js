@@ -3,7 +3,7 @@ import "./searchMenu.css";
 import { Button, SideNav, SideNavItem } from 'react-materialize';
 // import PlacesSearchComponent from './placesSearch/PlacesSearchContainer';
 
-const searchMenu = () =>
+const searchMenu = ( { placeSearch } ) =>
   <SideNav
     trigger={<Button floating large className='searchbtn' waves='light' icon='add' />}
     options={{ closeOnClick: true }}
@@ -17,6 +17,7 @@ const searchMenu = () =>
         email: 'jdandturk@gmail.com'
       }}
     />
+    {placeSearch}
 
     {/* <SideNavItem href='#!icon' icon='cloud'>First Link With Icon</SideNavItem>
     <SideNavItem href='#!second'>Second Link</SideNavItem>
