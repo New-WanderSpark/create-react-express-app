@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import tripsAPI from '../../lib/tripsAPI';
 
 // COMPONENTS
 import './Dashboard.css';
@@ -17,14 +18,15 @@ class Dashboard extends Component {
         super( props );
         this.state = {
             'placeDialogOpen': false,
-            'selectedPlace': {}
+            'pinnedPlaces': [],
+            'selectedPlace': {},
+            'tripId': '59f0080ef2f4740b1c555e30' // using test tripId
         };
     }
 
     // set the current place for the place details dialog and show the dialog
     showPlaceDialog ( place ) {
         this.setState( { 'selectedPlace': place, 'placeDialogOpen': true } );
-        // this.setState( { 'selectedPlace': place } );
     }
 
     // close the place details dialog
@@ -32,11 +34,28 @@ class Dashboard extends Component {
         this.setState( { 'placeDialogOpen': false } );
     }
 
+    loadPinnedPlaces () {
+        if ( this.state.tripId ) {}
+        tripsAPI.getTripData( this.state.tripId );
+    }
+
     // pins place to the place collection
     pinPlace ( place ) {
         // TODO add procedure to add the place to the collection of places pinned to the main trip area
         // and send request to save the trip in the data base
         window.alert( `Add place to trip:\ntitle: ${place.title}\nplaceId: ${place.placeId}` );
+        // send api request to add trip
+        // tripsAPI.addPlace( place.placeId )
+        //     .then( result => {
+        //         if ( result ) {
+        //             return tripsAPI.getTripData( )
+        //         } else {
+        //             console.log( 'a problem occured saving place to trip' );
+        //         }
+        //     } )
+        //     // TODO notify user of problem if error occurs
+        //     .catch( console.log );
+        // // console log the result
         this.closePlaceDialog();
     }
     render () {
