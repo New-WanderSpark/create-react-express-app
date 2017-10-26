@@ -1,11 +1,20 @@
 import axios from 'axios';
 
-// Sends request to trips API to add a place to a trip
+// Sends request to trips API and update the array of place ids
 function updatePlaces ( tripId, placeIds ) {
-    // TODO write code to send a request to the trips api to update a trip with
-    // a new place and pass true on success else pass false
-    console.log( 'placeIds', placeIds );
-    return axios.put( `/api/trips/${tripId}`, { placeIds } ).then( console.log );
+    return axios.put( `/api/trips/${tripId}`, { placeIds } )
+        .then( result => {
+            if ( result.statusText === 'OK' ) {
+                return result.data.placeIds;
+            }
+            // TODO add error handling
+            console.log( result.statusText );
+            return null;
+        } )
+        .catch( error => {
+            console.log( error );
+            return null;
+        } );
 }
 
 // Accepts a userId and returns the data for the trip belonging

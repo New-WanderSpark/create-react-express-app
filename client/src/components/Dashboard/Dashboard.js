@@ -23,13 +23,12 @@ class Dashboard extends Component {
             'placeDialogOpen': false,
             'pinnedPlaces': [],
             'selectedPlace': {},
-            'tripId': '59f0080ef2f4740b1c555e30' // using test tripId
+            'tripId': '59f00ab72a82c9099c369942' // using test tripId
         };
     }
 
     // set the current place for the place details dialog and show the dialog
     showPlaceDialog ( place ) {
-        console.log( place );
         this.setState( { 'selectedPlace': place, 'placeDialogOpen': true } );
     }
 
@@ -50,8 +49,6 @@ class Dashboard extends Component {
             .then( result => {
                 if ( result ) {
                     place.setDetails( result );
-                    console.log( place );
-                    console.log( this.state.pinnedPlaces );
                 } else {
                     console.log( 'unable to load place details' );
                 }
@@ -67,13 +64,19 @@ class Dashboard extends Component {
                 if ( result ) {
                     place.setDetails( result );
                     const placeIdArr = this.state.pinnedPlaces.map( el => el.placeId ).concat( place.placeId );
-                    tripsAPI.updatePlaces( this.state.tripId, placeIdArr );
-                    this.setState( { 'pinnedPlaces': this.state.pinnedPlaces.concat( place ) } );
+                    tripsAPI.updatePlaces( this.state.tripId, placeIdArr )
+                        .then( result => {
+                            if ( result ) {
+                                this.setState( { 'pinnedPlaces': this.state.pinnedPlaces.concat( place ) } );
+                            }
+                        } )
+                        .catch( error => console.log( 'error occured updating the trip', error ) );
                 }
             } )
             .catch( err => console.log( 'failed to load place details', err ) );
         this.closePlaceDialog();
     }
+
     render () {
         // const myCorkboard = () => <Corkboard places={this.state.pinnedPlaces} />;
         return (

@@ -16,9 +16,8 @@ module.exports = {
             .catch( err => res.status( 422 ).json( err ) );
     },
     'update': function ( req, res ) {
-        console.log( req.params.id, req.body );
         Trip
-            .findOneAndUpdate( { '_id': req.params.id }, req.body )
+            .findOneAndUpdate( { '_id': req.params.id }, { 'placeIds': req.body.placeIds }, { 'new': true } )
             .then( dbModel => res.json( dbModel ) )
             .catch( err => res.status( 422 ).json( err ) );
     },
