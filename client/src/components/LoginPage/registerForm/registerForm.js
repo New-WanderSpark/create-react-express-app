@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { Button, Icon, Row, Input, Col } from 'react-materialize';
 import './registerForm.css';
 import { Api } from '../../../lib/Api';
+import 'react-toastify/dist/ReactToastify.min.css';
+import { toast } from 'react-toastify';
 
 class RegisterForm extends Component {
     /**
