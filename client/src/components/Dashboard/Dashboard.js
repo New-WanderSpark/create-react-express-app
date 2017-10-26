@@ -26,6 +26,7 @@ class Dashboard extends Component {
 
     // set the current place for the place details dialog and show the dialog
     showPlaceDialog ( place ) {
+        console.log( place );
         this.setState( { 'selectedPlace': place, 'placeDialogOpen': true } );
     }
 
@@ -43,7 +44,6 @@ class Dashboard extends Component {
     pinPlace ( place ) {
         // TODO add procedure to add the place to the collection of places pinned to the main trip area
         // and send request to save the trip in the data base
-        window.alert( `Add place to trip:\ntitle: ${place.title}\nplaceId: ${place.placeId}` );
         // send api request to add trip
         // tripsAPI.addPlace( place.placeId )
         //     .then( result => {
@@ -56,9 +56,11 @@ class Dashboard extends Component {
         //     // TODO notify user of problem if error occurs
         //     .catch( console.log );
         // // console log the result
+        this.setState( { 'pinnedPlaces': this.state.pinnedPlaces.concat( place ) } );
         this.closePlaceDialog();
     }
     render () {
+        // const myCorkboard = () => <Corkboard places={this.state.pinnedPlaces} />;
         return (
             <div className='workdesk'>
                 <SearchMenu>
@@ -70,8 +72,8 @@ class Dashboard extends Component {
                 <UserFAB />
                 <Banner />
                 <Switch>
-                    <Route path='/dashboard' component={Corkboard}/>
-                    <Route path='/settings' component={Banner}/>
+                    <Route path='/dashboard' render={() => <Corkboard places={this.state.pinnedPlaces} />} />
+                    <Route path='/settings' component={Banner} />
                 </Switch>
                 <Footer />
                 <MuiThemeProvider>
