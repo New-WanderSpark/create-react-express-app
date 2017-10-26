@@ -13,7 +13,7 @@ function getDetails ( placeid ) {
         } )
         .catch( ( error ) => {
             console.log( error );
-            return [];
+            return null;
         } );
 }
 

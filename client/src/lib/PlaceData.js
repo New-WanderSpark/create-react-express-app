@@ -18,9 +18,14 @@ export default class PlaceData {
         this.photos = googleSearchResult.photos || []; // Array of photo objects per google places search api
 
         // set initial values for properties only available through the details api
-        this.description = '';
-        this.numReviews = -1; // initially set to -1. 0 reserved in case there are 0 reviews.
         this.phoneNumber = '';
         this.url = '';
+    }
+
+    // sets properties from a google place details api response object.
+    setDetails ( googlePlaceDetails ) {
+        this.phoneNumber = googlePlaceDetails.international_phone_number || 'unavailable';
+        this.url = googlePlaceDetails.website || 'unavailable';
+        this.detailsLoaded = true;
     }
 }
