@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import WanderSparkLogo from './wandersparkLogo.png';
 import './logo.css';
@@ -6,7 +6,7 @@ import './logo.css';
 const Logo = () =>
     <Link to="/">
         <div>
-            <img className='WanderSparkLogo' src={WanderSparkLogo} />
+            <img className='WanderSparkLogo' src={WanderSparkLogo} alt='WanderSparkLogo' />
         </div>
     </Link>;
 

@@ -1,12 +1,14 @@
 import React from 'react';
 import { Parallax } from 'react-materialize';
 import './About.css';
+import Airplanes from './sydneyKingsford.jpg';
 import TaxiCab from './travel.jpg';
+import RegisterForm from '../registerForm/registerForm';
 
 const About = () => {
     return (
         <div>
-            <Parallax imageSrc="http://materializecss.com/images/parallax1.jpg" />
+            <Parallax imageSrc={Airplanes} />
             <div className="section white">
                 <div className="row container">
                     <h2 className="header">About WanderSpark</h2>
@@ -19,6 +21,7 @@ const About = () => {
                 </div>
             </div>
             <Parallax imageSrc={TaxiCab} />
+            <RegisterForm />
         </div>
     );
 };
