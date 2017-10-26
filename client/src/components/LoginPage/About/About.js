@@ -1,24 +1,29 @@
-import React, {Component} from "react";
+import React from 'react';
+import { Parallax } from 'react-materialize';
+import './About.css';
+import Airplanes from './sydneyKingsford.jpg';
+import TaxiCab from './travel.jpg';
+import RegisterForm from '../registerForm/registerForm';
 
-import {Row, Col, CardPanel, MediaBox} from 'react-materialize';
-import "./About.css";
-import Travel from "./travel.jpg";
-
- const About = () => {
-   return (
-    <Row>
-      <h2 id="aboutHeading">About WanderSpark</h2>
-      <Col s={12} m={8}>
-          <CardPanel id="leftAboutPanel" className="teal lighten-4 black-text">
-              <span>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.</span>
-          </CardPanel>
-      </Col> 
-      <Col s={12} m={4}>        
-      <MediaBox src={Travel} caption="A demo media box1" height="200" width="350"/>
-      </Col>
-      
-    </Row>
-   );
-  }
+const About = () => {
+    return (
+        <div>
+            <Parallax imageSrc={Airplanes} />
+            <div className="section white">
+                <div className="row container">
+                    <h2 className="header">About WanderSpark</h2>
+                    <p className="grey-text text-darken-3 lighten-3">
+                    Every individual possesses their own level of wanderlust.  WanderSpark was designed and built to inspire you
+                    to plan your dream trip all in one beautiful dashboard.  Search for places to dine at, attractions, and entertainment, based
+                    on your desired destination.  Pin up to twelve of your search results to the WanderSpark dashboard to visualize your ideas
+                    and plans.  Simply put, WanderSpark is your own digital corkboard-planner.
+                    </p>
+                </div>
+            </div>
+            <Parallax imageSrc={TaxiCab} />
+            <RegisterForm />
+        </div>
+    );
+};
 
 export default About;
