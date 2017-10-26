@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button, Icon, Form, Row, Input, Col } from 'react-materialize';
+import { Button, Icon, Row, Input, Col } from 'react-materialize';
 import './registerForm.css';
 
 class RegisterForm extends Component {
@@ -29,7 +29,7 @@ class RegisterForm extends Component {
 
                 <Row>
                     <Col s={12} m={12}>
-                        <Input s={6} label="Trip Name" validate><Icon>airplanemode_active</Icon></Input>
+                        <Input s={6} label="Name your trip!" validate><Icon>airplanemode_active</Icon></Input>
                         <Button className='registrationBtn' s={6} waves='light'>Submit<Icon left>cloud</Icon></Button>
                     </Col>
                 </Row>

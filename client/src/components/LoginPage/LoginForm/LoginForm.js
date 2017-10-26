@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { Button, Icon, Form, Row, Input, Col } from 'react-materialize';
+import { Link } from 'react-router-dom';
+import { Button, Icon, Row, Input, Col } from 'react-materialize';
 
 class LoginForm extends Component {
     render () {
@@ -15,7 +16,7 @@ class LoginForm extends Component {
                         <Input s={12} type='Password' label='Password'><Icon>account_box</Icon></Input>
                     </Col>
                 </Row>
-                <Button waves='light'>Submit<Icon left>cloud</Icon></Button>
+                <Link to='/dashboard'><Button waves='light'>Submit<Icon left>cloud</Icon></Button></Link>
             </div>
         );
     }

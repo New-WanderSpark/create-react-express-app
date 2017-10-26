@@ -6,7 +6,6 @@ import Logo from './logo/logo';
 import LoginButton from './loginButton/loginButton';
 import RegisterButton from './registerButton/registerButton';
 import LoginForm from './LoginForm/LoginForm';
-import RegisterForm from './registerForm/registerForm';
 import About from './About/About';
 import Footer from '../Footer';
 
@@ -24,8 +23,8 @@ class LoginPage extends Component {
                     </Col>
                 </Row>
                 <Switch>
+                    {/* WHATS WRONG??? */}
                     <Route path='/login' component={LoginForm}/>
-                    <Route path='/register' component={RegisterForm}/>
                     <Route path='/' component={About}/>
                 </Switch>
                 <Footer />
