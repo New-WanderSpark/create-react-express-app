@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import tripsAPI from '../../lib/tripsAPI';
 
 // COMPONENTS
 import './Dashboard.css';
@@ -12,20 +13,24 @@ import SearchMenu from '../SearchMenu';
 import Settings from '../Settings';
 import UserFAB from '../UserFAB';
 import ViewPlaceDialog from '../ViewPlaceDialog';
+import placesAPI from '../../lib/placesAPI';
+import PlaceData from '../../lib/PlaceData';
 
 class Dashboard extends Component {
     constructor ( props ) {
         super( props );
         this.state = {
             'placeDialogOpen': false,
-            'selectedPlace': {}
+            'pinnedPlaces': [],
+            'selectedPlace': {},
+            'tripId': '59f0080ef2f4740b1c555e30' // using test tripId
         };
     }
 
     // set the current place for the place details dialog and show the dialog
     showPlaceDialog ( place ) {
+        console.log( place );
         this.setState( { 'selectedPlace': place, 'placeDialogOpen': true } );
-        // this.setState( { 'selectedPlace': place } );
     }
 
     // close the place details dialog
@@ -33,14 +38,55 @@ class Dashboard extends Component {
         this.setState( { 'placeDialogOpen': false } );
     }
 
+    // gets place data for all placesIds in the array of pinned places in the trip data.
+    loadPinnedPlaces () {
+        if ( this.state.tripId ) {}
+        tripsAPI.getTripData( this.state.tripId );
+    }
+
+    // adds additional details to an instance of PlaceData if not already loaded
+    loadPlaceDetails ( place ) {
+        return placesAPI.getDetails( place.placeId )
+            .then( result => {
+                if ( result ) {
+                    place.setDetails( result );
+                    console.log( place );
+                    console.log( this.state.pinnedPlaces );
+                } else {
+                    console.log( 'unable to load place details' );
+                }
+            } )
+            .catch( error => console.log( 'error occured loading details', error ) );
+    }
+
     // pins place to the place collection
     pinPlace ( place ) {
         // TODO add procedure to add the place to the collection of places pinned to the main trip area
         // and send request to save the trip in the data base
-        window.alert( `Add place to trip:\ntitle: ${place.title}\nplaceId: ${place.placeId}` );
+        // send api request to add trip
+        // tripsAPI.addPlace( place.placeId )
+        //     .then( result => {
+        //         if ( result ) {
+        //             return tripsAPI.getTripData( )
+        //         } else {
+        //             console.log( 'a problem occured saving place to trip' );
+        //         }
+        //     } )
+        //     // TODO notify user of problem if error occurs
+        //     .catch( console.log );
+        // // console log the result
+        placesAPI.getDetails( place.placeId )
+            .then( result => {
+                if ( result ) {
+                    place.setDetails( result );
+                    this.setState( { 'pinnedPlaces': this.state.pinnedPlaces.concat( place ) } );
+                }
+            } )
+            .catch( err => console.log( 'failed to load place details', err ) );        
         this.closePlaceDialog();
     }
     render () {
+        // const myCorkboard = () => <Corkboard places={this.state.pinnedPlaces} />;
         return (
             <div className='workdesk'>
                 <SearchMenu>
@@ -52,7 +98,9 @@ class Dashboard extends Component {
                 <UserFAB />
                 <Banner />
                 <Switch>
-                    <Route path='/dashboard' component={Corkboard}/>
+                    <Route path='/dashboard' render={() => <Corkboard places={this.state.pinnedPlaces} />} />
+                    {/* <Route path='/settings' component={Banner} /> */}
+                    {/* <Route path='/dashboard' component={Corkboard}/> */}
                     <Route path='/settings' component={Settings}/>
                 </Switch>
                 <Footer />
