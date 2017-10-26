@@ -12,5 +12,13 @@ export const Api = {
         }
 
         return axiosInstance.post( '/register', registrationData );
+    },
+
+    login ( loginObj ) {
+        if ( !loginObj || !loginObj.userName || !loginObj.password ) {
+            throw new Error( 'Login information is incomplete.' );
+        }
+
+        return axiosInstance.post( '/login', loginObj );
     }
 };

@@ -45,6 +45,9 @@ class RegisterForm extends Component {
             Api
                 .register( formData )
                 .then( ( response ) => {
+                    /**
+                     * TODO: add success message and redirect to login page.
+                     */
                     console.log( response );
                 } )
                 .catch( ( err ) => {
