@@ -1,1 +1,1 @@
-export { default } from "./Corkboard";
+export { default } from './Settings';
