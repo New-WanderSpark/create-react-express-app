@@ -6,15 +6,16 @@ class LoginForm extends Component {
         return (
             <div className="registerForm">
                 <Row>
-                    <Col s={12} m={6} l={12}>
-                        <Input s={6} label="Username" validate><Icon>account_box</Icon></Input>
+                    <Col s={12} m={12}>
+                        <Input s={12} label="Username" validate><Icon>account_box</Icon></Input>
                     </Col>
                 </Row>
                 <Row>
-                    <Col s={12} m={6} l={12}>
-                        <Input s={6} label="password" label='password'><Icon>account_box</Icon></Input>
+                    <Col s={12} m={12}>
+                        <Input s={12} type='Password' label='Password'><Icon>account_box</Icon></Input>
                     </Col>
                 </Row>
+                <Button waves='light'>Submit<Icon left>cloud</Icon></Button>
             </div>
         );
     }

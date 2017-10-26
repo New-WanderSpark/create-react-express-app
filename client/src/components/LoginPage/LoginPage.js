@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './LoginPage.css';
+import { Row, Col } from 'react-materialize';
 import Logo from './logo/logo';
 import LoginButton from './loginButton/loginButton';
 import RegisterButton from './registerButton/registerButton';
@@ -13,15 +14,15 @@ class LoginPage extends Component {
     render () {
         return (
             <div>
-                <Logo />
-                <div className="row" id='loginbuttons'>
-                    <div className="col s6">
+                <Row>
+                    <Col s={9} m={9} l={9}>
+                        <Logo />
+                    </Col>
+                    <Col s={3} m={3} l={3}>
                         <LoginButton />
-                    </div>
-                    <div className="col s6">
                         <RegisterButton />
-                    </div>
-                </div>
+                    </Col>
+                </Row>
                 <Switch>
                     <Route path='/login' component={LoginForm}/>
                     <Route path='/register' component={RegisterForm}/>
