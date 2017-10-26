@@ -1,14 +1,11 @@
 import axios from 'axios';
 
 // Sends request to trips API to add a place to a trip
-function addPlace ( tripId, placeId ) {
+function updatePlaces ( tripId, placeIds ) {
     // TODO write code to send a request to the trips api to update a trip with
     // a new place and pass true on success else pass false
-
-    // temporarily sends a promise with mock data
-    return new Promise( ( resolve, reject ) => {
-        return resolve( true );
-    } );
+    console.log( 'placeIds', placeIds );
+    return axios.put( `/api/trips/${tripId}`, { placeIds } ).then( console.log );
 }
 
 // Accepts a userId and returns the data for the trip belonging
@@ -35,4 +32,4 @@ function getTripData ( tripId ) {
     } );
 }
 
-export default { addPlace, getTripData };
+export default { getTripData, updatePlaces };

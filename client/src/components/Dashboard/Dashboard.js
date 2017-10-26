@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import placesAPI from '../../lib/placesAPI';
 import tripsAPI from '../../lib/tripsAPI';
 
 // COMPONENTS
@@ -13,8 +14,7 @@ import SearchMenu from '../SearchMenu';
 import Settings from '../Settings';
 import UserFAB from '../UserFAB';
 import ViewPlaceDialog from '../ViewPlaceDialog';
-import placesAPI from '../../lib/placesAPI';
-import PlaceData from '../../lib/PlaceData';
+// import PlaceData from '../../lib/PlaceData';
 
 class Dashboard extends Component {
     constructor ( props ) {
@@ -62,27 +62,16 @@ class Dashboard extends Component {
     // pins place to the place collection
     pinPlace ( place ) {
         // TODO add procedure to add the place to the collection of places pinned to the main trip area
-        // and send request to save the trip in the data base
-        // send api request to add trip
-        // tripsAPI.addPlace( place.placeId )
-        //     .then( result => {
-        //         if ( result ) {
-        //             return tripsAPI.getTripData( )
-        //         } else {
-        //             console.log( 'a problem occured saving place to trip' );
-        //         }
-        //     } )
-        //     // TODO notify user of problem if error occurs
-        //     .catch( console.log );
-        // // console log the result
         placesAPI.getDetails( place.placeId )
             .then( result => {
                 if ( result ) {
                     place.setDetails( result );
+                    const placeIdArr = this.state.pinnedPlaces.map( el => el.placeId ).concat( place.placeId );
+                    tripsAPI.updatePlaces( this.state.tripId, placeIdArr );
                     this.setState( { 'pinnedPlaces': this.state.pinnedPlaces.concat( place ) } );
                 }
             } )
-            .catch( err => console.log( 'failed to load place details', err ) );        
+            .catch( err => console.log( 'failed to load place details', err ) );
         this.closePlaceDialog();
     }
     render () {
