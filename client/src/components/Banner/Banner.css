@@ -1,7 +1,7 @@
 .jumbotron {
     position: relative;
     width: 100%;
-    height: 500px;
+    height: 400px;
     padding: 0;
     font-family: "Cormorant SC";
     box-shadow: 10px 5px 20px 2px lightslategrey;
@@ -21,7 +21,7 @@
 
 .jumbotron .background-image {
     height: 100%;
-    background-image: url("../../images/japanPH.png");
+    background-image: url("./japanPH.png");
     background-size: cover;
 }
 

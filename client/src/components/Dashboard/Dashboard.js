@@ -10,6 +10,7 @@ import Footer from '../Footer';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PlacesSearchContainer from '../PlacesSearch/PlacesSearchContainer';
 import SearchMenu from '../SearchMenu';
+import Settings from '../Settings';
 import UserFAB from '../UserFAB';
 import ViewPlaceDialog from '../ViewPlaceDialog';
 import placesAPI from '../../lib/placesAPI';
@@ -98,7 +99,9 @@ class Dashboard extends Component {
                 <Banner />
                 <Switch>
                     <Route path='/dashboard' render={() => <Corkboard places={this.state.pinnedPlaces} />} />
-                    <Route path='/settings' component={Banner} />
+                    {/* <Route path='/settings' component={Banner} /> */}
+                    {/* <Route path='/dashboard' component={Corkboard}/> */}
+                    <Route path='/settings' component={Settings}/>
                 </Switch>
                 <Footer />
                 <MuiThemeProvider>
