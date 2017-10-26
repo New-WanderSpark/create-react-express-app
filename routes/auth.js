@@ -97,7 +97,7 @@ router.post( '/register', ( req, res, next ) => {
 
             return res.status( 400 ).json( {
                 'success': false,
-                'message': 'Could not process the form.'
+                'message': 'Could not process the form. ' + err
             } );
         }
 
