@@ -8,7 +8,6 @@ import Button from './Button';
 export default function ResultItem ( props ) {
     const { place } = props;
     const photoRef = place.photos[0] ? place.photos[0].photo_reference : 'unavailable';
-    console.log(place);
     return (
         <li>
             <p>Title: {place.title}</p>

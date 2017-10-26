@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Icon, Row, Input, Col } from 'react-materialize';
-import { Api } from '../../../lib/Api';
+import { Input, Button, Icon } from 'react-materialize';
+import './LoginForm.css';
 
 class LoginForm extends Component {
     submitLogin () {
@@ -23,18 +23,22 @@ class LoginForm extends Component {
 
     render () {
         return (
-            <div className="loginForm">
-                <Row>
-                    <Col s={12} m={12}>
-                        <Input s={12} label="Username" id="userName" validate name="userName"><Icon>account_box</Icon></Input>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col s={12} m={12}>
-                        <Input s={12} type='Password' label='Password' id="password" name="password"><Icon>account_box</Icon></Input>
-                    </Col>
-                </Row>
-                <Button waves='light' onClick={this.submitLogin} type="button">Submit<Icon left>cloud</Icon></Button>
+            <div>
+                <div class="container" id="signIn">
+                    <div class="card-panel">
+                        <div class="row noMarg1">
+                            <form class="col s12">
+                                <div class="row noMarg1">
+                                    <Input s={12} label="Username" validate><Icon>account_box</Icon></Input>
+                                </div>
+                                <div class="row noMarg1">
+                                    <Input s={12} label="Password" type='Password' validate><Icon>lock</Icon></Input>
+                                </div>
+                                <Link to='/dashboard'><Button waves='light'>Submit<Icon left>cloud</Icon></Button></Link>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

@@ -3,43 +3,31 @@ import Shibuya from './shibuya.png';
 import './Corkboard.css';
 import GoogleMaps from "../Maps";
 import { Card, CardTitle } from 'react-materialize';
+import PlacePinCard from './PlacePinCard';
 
-const Corkboard = () =>
-    <div className="background-image">
-        <div className="container">
-            <div className="row">
-
-                <div className="col s12 m4">
-                    <Card header={<CardTitle reveal image={Shibuya} waves='light'/>}
-                        title="Card Title"
-                        reveal={<p>Here is some more information about this product that is only revealed once clicked on.</p>}>
-                        <p><a href="#">This is a link</a></p>
-                    </Card>
-                </div>
-
-                <div className="col s12 m4">
-                    <Card header={<CardTitle reveal image={Shibuya} waves='light'/>}
-                        title="Card Title"
-                        reveal={<p>Here is some more information about this product that is only revealed once clicked on.</p>}>
-                        <p><a href="#">This is a link</a></p>
-                    </Card>
-                </div>
-
-                <div className="col s12 m4">
-                    <Card header={<CardTitle reveal image={Shibuya} waves='light'/>}
-                        title="Card Title"
-                        reveal={<p>Here is some more information about this product that is only revealed once clicked on.</p>}>
-                        <p><a href="#">This is a link</a></p>
-                    </Card>
-                </div>
-
-                <div className="col s12 m12">
-                    <GoogleMaps />
-                </div>
-
+const Corkboard = ( props ) => {
+    let placeCards;
+    if ( props.places ) {
+        placeCards = props.places.map(place => (
+            <div className="col s12 m4" key={place.placeId}>
+                <PlacePinCard place={place} />
             </div>
-        </div>
+        ));
+    }
+    return (
+        <div className="background-image">
+            <div className="container">
+                <div className="row">
+                    {placeCards}
+                    <div className="col s12 m12">
+                        <GoogleMaps />
+                    </div>
 
-    </div>;
+                </div>
+            </div>
+
+        </div>
+    );
+};
 
 export default Corkboard;
