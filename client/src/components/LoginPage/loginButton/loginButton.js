@@ -6,7 +6,11 @@ import './loginButton.css';
 class LoginButton extends Component {
     render () {
         return (
-            <Link to='/login'><Button className='loginBtn' waves='light'>Login<Icon left>cloud</Icon></Button></Link>
+            <Link to='/login'>
+                <Button href='#signIn' className='loginBtn' waves='light'>Login
+                    <Icon left>cloud</Icon>
+                </Button>
+            </Link>
         );
     }
 }

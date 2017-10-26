@@ -7,14 +7,14 @@ class LoginForm extends Component {
     render () {
         return (
             <div>
-                <div class="container" id="signIn">
-                    <div class="card-panel">
-                        <div class="row noMarg1">
-                            <form class="col s12">
-                                <div class="row noMarg1">
+                <div className="container" id="signIn">
+                    <div className="card-panel">
+                        <div className="row noMarg1">
+                            <form className="col s12">
+                                <div className="row noMarg1">
                                     <Input s={12} label="Username" validate><Icon>account_box</Icon></Input>
                                 </div>
-                                <div class="row noMarg1">
+                                <div className="row noMarg1">
                                     <Input s={12} label="Password" type='Password' validate><Icon>lock</Icon></Input>
                                 </div>
                                 <Link to='/dashboard'><Button waves='light'>Submit<Icon left>cloud</Icon></Button></Link>

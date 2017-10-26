@@ -1,8 +1,6 @@
 import React from 'react';
-import Shibuya from './shibuya.png';
 import './Corkboard.css';
 import GoogleMaps from "../Maps";
-import { Card, CardTitle } from 'react-materialize';
 import PlacePinCard from './PlacePinCard';
 
 const Corkboard = ( props ) => {
