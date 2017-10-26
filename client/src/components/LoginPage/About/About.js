@@ -3,7 +3,6 @@ import { Parallax } from 'react-materialize';
 import './About.css';
 import Airplanes from './sydneyKingsford.jpg';
 import TaxiCab from './travel.jpg';
-import RegisterForm from '../registerForm/registerForm';
 
 const About = () => {
     return (
@@ -21,7 +20,6 @@ const About = () => {
                 </div>
             </div>
             <Parallax imageSrc={TaxiCab} />
-            <RegisterForm />
         </div>
     );
 };
