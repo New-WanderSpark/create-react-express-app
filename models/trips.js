@@ -9,7 +9,8 @@ const tripSchema = new Schema( {
     },
     'placeIds': {
         'type': Array,
-        'maxLength': 12
+        'maxLength': 12,
+        'default': []
     },
     'createdAt': {
         'type': Date,
@@ -20,9 +21,8 @@ const tripSchema = new Schema( {
         'default': Date.now
     },
     'ownerId': {
-        'type': String,
-        'required': true,
-        'unique': true
+        'type': Schema.Types.ObjectId,
+        'required': true
     }
 } );
 
