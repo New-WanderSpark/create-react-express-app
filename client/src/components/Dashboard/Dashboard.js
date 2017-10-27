@@ -19,6 +19,7 @@ import ViewPlaceDialog from '../ViewPlaceDialog';
 class Dashboard extends Component {
     constructor ( props ) {
         super( props );
+        console.log( `user id: ${this.props.userId}`);
         this.state = {
             'placeDialogOpen': false,
             'pinnedPlaces': [], // array of PlaceData instances

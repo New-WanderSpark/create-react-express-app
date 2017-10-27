@@ -6,7 +6,7 @@ const trips = require( './trips' );
 const auth = require( './auth' );
 
 // API Routes
-router.use( '/', auth );
+// router.use( '/', auth );
 router.use( '/api/users', users );
 router.use( '/api/trips', trips );
 router.use( '/places', places );

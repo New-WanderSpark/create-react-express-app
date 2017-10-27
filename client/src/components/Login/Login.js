@@ -2,9 +2,9 @@ import React from 'react';
 import { GoogleLogin } from 'react-google-login-component';
 
 class Login extends React.Component {
-    constructor ( props, context ) {
-        super( props, context );
-    }
+    // constructor ( props, context ) {
+    //     super( props, context );
+    // }
 
     responseGoogle ( googleUser ) {
         var id_token = googleUser.getAuthResponse().id_token;
