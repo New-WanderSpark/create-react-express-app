@@ -8,6 +8,12 @@ module.exports = {
             .then( dbModel => res.json( dbModel ) )
             .catch( err => res.status( 422 ).json( err ) );
     },
+    'findByOwner': function ( req, res ) {
+        Trip
+            .findOne( { 'ownerId': req.body.ownerId } )
+            .then( dbModel => res.json( dbModel ) )
+            .catch( err => res.status( 422 ).json( err ) );
+    },
     'findAll': function ( req, res ) {
         Trip
             .find( req.query )
