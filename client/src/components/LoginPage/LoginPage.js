@@ -5,9 +5,9 @@ import { Row, Col } from 'react-materialize';
 import Logo from './logo/logo';
 import LoginButton from './loginButton/loginButton';
 import RegisterButton from './registerButton/registerButton';
+import RegisterForm from './registerForm/registerForm';
 import LoginForm from './LoginForm/LoginForm';
 import About from './About/About';
-import RegisterForm from './registerForm/registerForm';
 import Footer from '../Footer';
 
 class LoginPage extends Component {
