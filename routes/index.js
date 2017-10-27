@@ -3,7 +3,7 @@ const router = require( 'express' ).Router();
 const places = require( './places' );
 const users = require( './users' );
 const trips = require( './trips' );
-const auth = require( './auth' );
+// const auth = require( './auth' );
 
 // API Routes
 // router.use( '/', auth );
