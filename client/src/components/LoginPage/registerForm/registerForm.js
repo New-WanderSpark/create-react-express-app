@@ -58,7 +58,8 @@ class RegisterForm extends Component {
                     }
                 } )
                 .catch( ( err ) => {
-                    throw new Error( err );
+                    // throw new Error( err );
+                    console.log( err );
                 } );
         } else {
             console.log( 'No form found.' );

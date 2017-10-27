@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import Login from './login/componet/Login';
+// import Login from './components/Login/Login';
 
 ReactDOM.render(
     <BrowserRouter>
