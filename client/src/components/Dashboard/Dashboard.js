@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import placesAPI from '../../lib/placesAPI';
+import PlaceData from '../../lib/PlaceData';
 import tripsAPI from '../../lib/tripsAPI';
 
 // COMPONENTS
@@ -13,23 +15,46 @@ import SearchMenu from '../SearchMenu';
 import Settings from '../Settings';
 import UserFAB from '../UserFAB';
 import ViewPlaceDialog from '../ViewPlaceDialog';
-import placesAPI from '../../lib/placesAPI';
-import PlaceData from '../../lib/PlaceData';
 
 class Dashboard extends Component {
     constructor ( props ) {
         super( props );
         this.state = {
             'placeDialogOpen': false,
-            'pinnedPlaces': [],
+            'pinnedPlaces': [], // array of PlaceData instances
             'selectedPlace': {},
-            'tripId': '59f0080ef2f4740b1c555e30' // using test tripId
+            'tripId': ''
         };
+        // get the trip for that user and update the tripId and pinnedPlaces
+        tripsAPI.getTripData( props.userId )
+            .then( result => {
+                if ( result ) {
+                    this.setState( { 'tripId': result._id } );
+                    this.loadPlaceData( result.placeIds );
+                } else {
+                    console.log( `unable to access trip data for userId ${props.userId}` );
+                }
+            } )
+            .catch( error => console.log( `error occured loading trip data for userId ${props.userId}`, error ) );
+    }
+
+    // Accepts an array of placeids and requests detailss for each place and updates the state accordingly.
+    loadPlaceData ( placeIdArr ) {
+        Promise
+            // use .all to preserve the order of the data despite async
+            .all( placeIdArr.map( id => placesAPI.getDetails( id ) ) )
+
+            // create a new PlaceData object for each response from google
+            .then( resultArr => {
+                this.setState( { 'pinnedPlaces': resultArr.map( detailsObj => new PlaceData( detailsObj ) ) } );
+            } )
+
+            // TODO error handling
+            .catch( error => console.log( `A problem occured loading place details. Place ids: ${placeIdArr}`, error ) );
     }
 
     // set the current place for the place details dialog and show the dialog
     showPlaceDialog ( place ) {
-        console.log( place );
         this.setState( { 'selectedPlace': place, 'placeDialogOpen': true } );
     }
 
@@ -38,20 +63,12 @@ class Dashboard extends Component {
         this.setState( { 'placeDialogOpen': false } );
     }
 
-    // gets place data for all placesIds in the array of pinned places in the trip data.
-    loadPinnedPlaces () {
-        if ( this.state.tripId ) {}
-        tripsAPI.getTripData( this.state.tripId );
-    }
-
     // adds additional details to an instance of PlaceData if not already loaded
     loadPlaceDetails ( place ) {
         return placesAPI.getDetails( place.placeId )
             .then( result => {
                 if ( result ) {
                     place.setDetails( result );
-                    console.log( place );
-                    console.log( this.state.pinnedPlaces );
                 } else {
                     console.log( 'unable to load place details' );
                 }
@@ -62,29 +79,24 @@ class Dashboard extends Component {
     // pins place to the place collection
     pinPlace ( place ) {
         // TODO add procedure to add the place to the collection of places pinned to the main trip area
-        // and send request to save the trip in the data base
-        // send api request to add trip
-        // tripsAPI.addPlace( place.placeId )
-        //     .then( result => {
-        //         if ( result ) {
-        //             return tripsAPI.getTripData( )
-        //         } else {
-        //             console.log( 'a problem occured saving place to trip' );
-        //         }
-        //     } )
-        //     // TODO notify user of problem if error occurs
-        //     .catch( console.log );
-        // // console log the result
         placesAPI.getDetails( place.placeId )
             .then( result => {
                 if ( result ) {
                     place.setDetails( result );
-                    this.setState( { 'pinnedPlaces': this.state.pinnedPlaces.concat( place ) } );
+                    const placeIdArr = this.state.pinnedPlaces.map( el => el.placeId ).concat( place.placeId );
+                    tripsAPI.updatePlaces( this.state.tripId, placeIdArr )
+                        .then( result => {
+                            if ( result ) {
+                                this.setState( { 'pinnedPlaces': this.state.pinnedPlaces.concat( place ) } );
+                            }
+                        } )
+                        .catch( error => console.log( 'error occured updating the trip', error ) );
                 }
             } )
-            .catch( err => console.log( 'failed to load place details', err ) );        
+            .catch( err => console.log( 'failed to load place details', err ) );
         this.closePlaceDialog();
     }
+
     render () {
         // const myCorkboard = () => <Corkboard places={this.state.pinnedPlaces} />;
         return (

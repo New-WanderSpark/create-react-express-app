@@ -6,11 +6,11 @@ import PlacePinCard from './PlacePinCard';
 const Corkboard = ( props ) => {
     let placeCards;
     if ( props.places ) {
-        placeCards = props.places.map(place => (
+        placeCards = props.places.map( place => (
             <div className="col s12 m4" key={place.placeId}>
                 <PlacePinCard place={place} />
             </div>
-        ));
+        ) );
     }
     return (
         <div className="background-image">
