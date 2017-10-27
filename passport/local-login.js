@@ -13,13 +13,14 @@ module.exports = new PassportLocalStrategy( {
     'passReqToCallback': true
 }, ( req, userName, password, done ) => {
     const userData = {
-        'userName': userName.trim(),
-        'password': password.trim()
+        'userName': req.body.userName.trim(),
+        'password': req.body.password.trim()
     };
 
     /*
     * find a user by username
     */ 
+
     return User.findOne( { 'userName': userData.userName }, ( err, user ) => {
         if ( err ) { return done( err ); }
 
@@ -52,7 +53,9 @@ module.exports = new PassportLocalStrategy( {
             */ 
             const token = jwt.sign( payload, config.jwtSecret );
             const data = {
-                'name': user.name
+                'name': user.name,
+                'email': user.email,
+                'userName': user.userName
             };
 
             return done( null, token, data );

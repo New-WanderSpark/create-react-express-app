@@ -10,13 +10,13 @@ class RegisterForm extends Component {
      * Submit registration information.
      */
     submitRegistration () {
-        let formContents = document.getElementsByClassName( 'registerForm' );
-
+        let formContents = document.getElementById( 'registerForm' );
+        console.log( formContents );
         /**
          * Make sure we found the form.
          */
-        if ( formContents && formContents.length ) {
-            let formElements = formContents[0].getElementsByTagName( 'input' );
+        if ( formContents ) {
+            let formElements = formContents.getElementsByTagName( 'input' );
             let formData = {};
             let errors = [];
 
@@ -50,11 +50,18 @@ class RegisterForm extends Component {
                     /**
                      * TODO: add success message and redirect to login page.
                      */
-                    console.log( response );
+
+                    if ( response.data.success ) {
+                        alert( response.data.message );
+                    } else {
+                        alert( response.data.error );
+                    }
                 } )
                 .catch( ( err ) => {
                     throw new Error( err );
                 } );
+        } else {
+            console.log( 'No form found.' );
         }
     }
 

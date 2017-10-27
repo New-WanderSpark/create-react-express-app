@@ -13,7 +13,12 @@ class LoginForm extends Component {
             Api
                 .login( {userName, password} )
                 .then( ( response ) => {
-                    console.log( response );
+                    if ( response.data.success ) {
+                        localStorage.setItem( 'jwt', response.data.token );
+                        document.location = '/dashboard';
+                    } else {
+                        alert( 'Sorry, login failed.' );
+                    }
                 } )
                 .catch( ( err ) => {
                     // throw new Error( err );
@@ -30,12 +35,12 @@ class LoginForm extends Component {
                         <div className="row noMarg1">
                             <form className="col s12">
                                 <div className="row noMarg1">
-                                    <Input s={12} label="Username" validate><Icon>account_box</Icon></Input>
+                                    <Input s={12} label="Username" validate name='userName' id='userName'><Icon>account_box</Icon></Input>
                                 </div>
                                 <div className="row noMarg1">
-                                    <Input s={12} label="Password" type='Password' validate><Icon>lock</Icon></Input>
+                                    <Input s={12} label="Password" type='password' validate name='password' id='password'><Icon>lock</Icon></Input>
                                 </div>
-                                <Link to='/dashboard'><Button waves='light' onClick={this.submitLogin}>Submit<Icon left>cloud</Icon></Button></Link>
+                                <Button waves='light' onClick={this.submitLogin} type="button">Submit<Icon left>cloud</Icon></Button>
                             </form>
                         </div>
                     </div>
