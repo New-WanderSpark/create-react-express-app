@@ -5,7 +5,7 @@ import './registerForm.css';
 class RegisterForm extends Component {
     render () {
         return (
-            <div className="registerForm">
+            <div id="registerForm">
                 <Row>
                     <Col s={12} m={12}>
                         <Input s={6} label="Username" validate><Icon>account_box</Icon></Input>
