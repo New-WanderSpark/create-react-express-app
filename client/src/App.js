@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
+import LoginPage from './components/LoginPage';
+import Dashboard from './components/Dashboard';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    render () {
+        return (
+            <Router>
+                <div>
+                    <Route exact={true} path='/' component={LoginPage} />
+                    <Route exact={true} path='/login' component={LoginPage} />
+                    {/* TODO userId prop on the Dashboard component should reflect the logged in user. Currently using a fixed userId for testing. */}
+                    <Route exact={true} path='/dashboard' render={() => <Dashboard userId='59f006eef2f4740b1c555e2f' />} />
+                    <Route exact={true} path='/settings' render={() => <Dashboard userId='59f006eef2f4740b1c555e2f' />} />
+                </div>
+            </Router>
+        );
+    }
 }
 
 export default App;

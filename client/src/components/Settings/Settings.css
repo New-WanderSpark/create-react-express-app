@@ -1,0 +1,10 @@
+.changeForm {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    background: #e0e0e0;
+}
+
+.savedBtn {
+    float: right;
+}
