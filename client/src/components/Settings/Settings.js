@@ -9,14 +9,12 @@ class Settings extends Component {
                 <Row>
                     <Col s={12} m={12}>
                         <Input s={6} label="Change name of trip" validate><Icon>airplanemode_active</Icon></Input>
-                        <Input s={6} label="Change First Name" validate><Icon>account_box</Icon></Input>
                     </Col>
                 </Row>
 
                 <Row>
                     <Col s={12} m={12}>
                         <Input s={6} label="Change Password" type='Password' validate><Icon>lock</Icon></Input>
-                        <Input s={6} label="Change Last Name" validate><Icon>account_box</Icon></Input>
                     </Col>
                 </Row>
 
