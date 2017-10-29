@@ -4,4 +4,5 @@ div.center-align {
     background-color: #afb0b3;
     position: absolute;
     flex-direction: column;
+    padding: 5px;
 }
