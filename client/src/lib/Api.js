@@ -3,7 +3,7 @@ import axios from 'axios';
 let baseUrl = 'http://localhost:3001';
 
 if ( process.env.NODE_ENV === 'production' ) {
-    baseUrl = 'https://wanderspark.herokuapp.com';
+    baseUrl = 'https://wander-spark.herokuapp.com/';
 }
 
 const axiosInstance = axios.create( {
