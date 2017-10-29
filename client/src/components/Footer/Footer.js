@@ -3,22 +3,13 @@ import './Footer.css';
 import { Footer } from 'react-materialize';
 
 const footer = () =>
-    <Footer copyrights="&copy 2015 Copyright Text"
-        moreLinks={
-            <a className="grey-text text-lighten-4 right" href="#!">More Links</a>
-        }
-        links={
-            <ul>
-                <li><a className="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                <li><a className="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                <li><a className="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                <li><a className="grey-text text-lighten-3" href="#!">Link 4</a></li>
-            </ul>
-        }
-        className='example'
-    >
-        <h5 className="white-text">Footer Content</h5>
-        <p className="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+    <Footer copyrights="&copy; 2017 WanderSpark" className="center">
+        <h5 className="white-text" className="center">About Us</h5>
+        <p className="grey-text text-lighten-4" className="center">Hi!  We are a team of full-stack web developers who just graduated from the Coding Bootcamp from UCSD Extension in October 2017.
+We are a group of individuals with a passion for creativity because creativity makes us happy.  We hope you finally pursue your
+wanderlust and enjoy using WanderSpark!
+
+- Jasmine, Julie, Susan, Teddy, John & Matt</p>
     </Footer>;
 
 export default footer;
