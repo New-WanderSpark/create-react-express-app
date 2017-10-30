@@ -1,3 +1,11 @@
+/* TO DO:
+*
+*   - Add a map property to Corkboard which gets rendered in place of the GoogleMaps component
+*   - Dashboard should pass a google map component as the map prop on Corkboard
+*   - GoogleMap component should accept a markers prop which is an array of lat long objects representing markers to render
+*   - Add a mapMarkers property to the state of Dashboard. This should be the array of markers passed to the GoogleMap component.
+*   - The pin place method should add a marker to state.mapMarkers array
+ */
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import placesAPI from '../../lib/placesAPI';
