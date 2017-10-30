@@ -15,7 +15,7 @@ class LoginForm extends Component {
                 .then( ( response ) => {
                     if ( response.data.success ) {
                         localStorage.setItem( 'jwt', response.data.token );
-                        localStorage.setItem( 'user', response.data.user );
+                        localStorage.setItem( 'user', JSON.stringify( response.data.user ) );
                         document.location = '/dashboard';
                     } else {
                         alert( 'Sorry, login failed.' );
