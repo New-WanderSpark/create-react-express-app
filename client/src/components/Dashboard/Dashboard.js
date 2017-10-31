@@ -1,8 +1,5 @@
 /* TO DO:
 *
-*   - Add a map property to Corkboard which gets rendered in place of the GoogleMaps component
-*   - Dashboard should pass a google map component as the map prop on Corkboard
-*   - GoogleMap component should accept a markers prop which is an array of lat long objects representing markers to render
 *   - Add a mapMarkers property to the state of Dashboard. This should be the array of markers passed to the GoogleMap component.
 *   - The pin place method should add a marker to state.mapMarkers array
  */
@@ -29,6 +26,7 @@ class Dashboard extends Component {
         super();
         const userId = JSON.parse( window.localStorage.getItem( 'user' ) ).userId;
         this.state = {
+            'mapMarkers': [],
             'placeDialogOpen': false,
             'pinnedPlaces': [], // array of PlaceData instances
             'selectedPlace': {},
@@ -40,18 +38,19 @@ class Dashboard extends Component {
             .then( result => {
                 if ( result ) {
                     this.setState( { 'tripId': result.data._id } );
-                    this.loadPlaceData( result.data.placeIds );
+                    return this.loadPlaceData( result.data.placeIds );
                 } else {
-                    console.log( `unable to access trip data for userId "${userId}"` );
+                    return console.log( `unable to access trip data for userId "${userId}"` );
                 }
             } )
+            .then( this.updateMarkers.bind( this ) )
             .catch( error => console.log( `error occured loading trip data for userId "${userId}"`, error ) );
     }
 
-    // Accepts an array of placeids and requests detailss for each place and updates the state accordingly.
+    // Accepts an array of placeids and requests details for each place and updates the state accordingly.
     loadPlaceData ( placeIdArr ) {
         if ( !placeIdArr ) return void 0;
-        Promise
+        return Promise
             // use .all to preserve the order of the data despite async
             .all( placeIdArr.map( id => Api.getDetails( id ) ) )
 
@@ -87,6 +86,7 @@ class Dashboard extends Component {
                                 this.setState( { 'pinnedPlaces': this.state.pinnedPlaces.concat( place ) } );
                             }
                         } )
+                        .then( this.updateMarkers.bind( this ) )
                         .catch( error => console.log( 'error occured updating the trip', error ) );
                 }
             } )
@@ -94,12 +94,13 @@ class Dashboard extends Component {
         this.closePlaceDialog();
     }
 
+    // Updates the mapMarkers displayed on the map
+    updateMarkers () {
+        const markers = this.state.pinnedPlaces.map( placeData => placeData.geometry.location );
+        this.setState( { 'mapMarkers': markers } );
+    }
+
     render () {
-        const mapMarkers = [
-            {'lat': 35.6590537, 'lng': 139.6983691},
-            {'lat': 35.6654861, 'lng': 139.7684781},
-            {'lat': 35.6154908, 'lng': 139.7753201}
-        ];
         return (
             <div className='workdesk'>
                 <SearchMenu>
@@ -114,7 +115,7 @@ class Dashboard extends Component {
                     <Route path='/dashboard' render={() => (
                         <Corkboard
                             places={this.state.pinnedPlaces}
-                            map={<GoogleMaps markers={mapMarkers} />}
+                            map={<GoogleMaps markers={this.state.mapMarkers} />}
                         />
                     )} />
                     <Route path='/settings' component={Settings}/>

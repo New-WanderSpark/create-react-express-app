@@ -19,8 +19,8 @@ const MyMapComponent = compose(
         defaultCenter={{ 'lat': 35.6522787, 'lng': 139.7241987 }}
         defaultOptions={{ 'styles': MapStyles }}
     >
-        {props.markers.map( ( data ) => {
-            return props.isMarkerShown && <Marker position={{ 'lat': data.lat, 'lng': data.lng }} onClick={props.onMarkerClick} />;
+        {props.markers.map( ( data, index ) => {
+            return props.isMarkerShown && <Marker key={index} position={{ 'lat': data.lat, 'lng': data.lng }} onClick={props.onMarkerClick} />;
         } )}
     </GoogleMap>
 );
@@ -29,13 +29,13 @@ class GoogleMaps extends React.PureComponent {
     constructor ( props ) {
         super( props );
         this.state = {
-            'isMarkerShown': false,
-            'markers': props.markers
+            'isMarkerShown': false
         };
     }
 
     componentDidMount () {
         this.delayedShowMarker();
+        this.setState( { 'markers': this.props.markers } );
     }
 
     delayedShowMarker () {
@@ -53,8 +53,8 @@ class GoogleMaps extends React.PureComponent {
         return (
             <MyMapComponent
                 isMarkerShown={this.state.isMarkerShown}
-                onMarkerClick={this.handleMarkerClick}
-                markers={this.state.markers}
+                onMarkerClick={this.handleMarkerClick.bind(this)}
+                markers={this.props.markers}
             />
         );
     }
