@@ -16,6 +16,7 @@ import './Dashboard.css';
 import Banner from '../Banner';
 import Corkboard from '../Corkboard';
 import Footer from '../Footer';
+import GoogleMaps from '../Maps';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PlacesSearchContainer from '../PlacesSearch/PlacesSearchContainer';
 import SearchMenu from '../SearchMenu';
@@ -75,7 +76,6 @@ class Dashboard extends Component {
 
     // pins place to the place collection
     pinPlace ( place ) {
-        // TODO add procedure to add the place to the collection of places pinned to the main trip area
         Api.getDetails( place.placeId )
             .then( result => {
                 if ( result.data ) {
@@ -95,7 +95,6 @@ class Dashboard extends Component {
     }
 
     render () {
-        // const myCorkboard = () => <Corkboard places={this.state.pinnedPlaces} />;
         return (
             <div className='workdesk'>
                 <SearchMenu>
@@ -107,9 +106,7 @@ class Dashboard extends Component {
                 <UserFAB />
                 <Banner />
                 <Switch>
-                    <Route path='/dashboard' render={() => <Corkboard places={this.state.pinnedPlaces} />} />
-                    {/* <Route path='/settings' component={Banner} /> */}
-                    {/* <Route path='/dashboard' component={Corkboard}/> */}
+                    <Route path='/dashboard' render={() => <Corkboard places={this.state.pinnedPlaces} map={<GoogleMaps />} />} />
                     <Route path='/settings' component={Settings}/>
                 </Switch>
                 <Footer />
