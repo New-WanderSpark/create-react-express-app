@@ -76,13 +76,13 @@ export const Api = {
             return Promise.reject( new Error( 'placeid is a required field.' ) );
         }
 
-        return axios.post( '/places/details', { placeid } );
+        return axiosInstance.post( '/api/places/details', { placeid } );
     },
     textSearch ( queryString ) {
         if ( !queryString || queryString.length < 3 ) {
             return Promise.reject( new Error( 'placeid is a required field.' ) );
         }
 
-        return axios.get( `/places/search/${queryString}` );
+        return axiosInstance.get( `/api/places/search/${queryString}` );
     }
 };
