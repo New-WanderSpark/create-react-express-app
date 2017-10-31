@@ -5,4 +5,5 @@ div.center-align {
     position: absolute;
     flex-direction: column;
     padding: 5px;
+    font-size: 18px;
 }
