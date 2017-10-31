@@ -12,7 +12,8 @@ router
 // Route matches with "api/trips/"
 router
     .route( '/' )
-    .get( tripsController.findAll );
+    .get( tripsController.findAll )
+    .post( tripsController.findByOwner ); // expects ownerId key in request body (json)
 
 // Route matches with "api/trips/:id"
 router

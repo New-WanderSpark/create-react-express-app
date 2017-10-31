@@ -10,9 +10,9 @@ router
     .post( usersController.create );
 
 // Route matches with "api/users/login"
-router
-    .route( '/login' )
-    .post( usersController.findOne );
+// router
+//     .route( '/login' )
+//     .post( usersController.findOne );
 
 // Route matches with "api/users/:id"
 router

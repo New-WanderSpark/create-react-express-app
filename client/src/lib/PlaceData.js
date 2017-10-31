@@ -1,7 +1,7 @@
 // Returns the PlaceData class which represents the data for a point of interest.
 
 export default class PlaceData {
-    // Excepts an object from the array returned by /places/search api endpoint
+    // Excepts an object from the array returned by /places/search api endpoint OR the places/details api
     constructor ( googleSearchResult ) {
         // true if details have been loaded from /places/details
         this.detailsLoaded = false;
@@ -18,9 +18,15 @@ export default class PlaceData {
         this.photos = googleSearchResult.photos || []; // Array of photo objects per google places search api
 
         // set initial values for properties only available through the details api
-        this.description = '';
-        this.numReviews = -1; // initially set to -1. 0 reserved in case there are 0 reviews.
-        this.phoneNumber = '';
-        this.url = '';
+        // this data is available when googleSearchResult comes from the details api.
+        this.phoneNumber = googleSearchResult.international_phone_number || '';
+        this.url = googleSearchResult.website || '';
+    }
+
+    // sets properties from a google place details api response object.
+    setDetails ( googlePlaceDetails ) {
+        this.phoneNumber = googlePlaceDetails.international_phone_number || 'unavailable';
+        this.url = googlePlaceDetails.website || 'unavailable';
+        this.detailsLoaded = true;
     }
 }
