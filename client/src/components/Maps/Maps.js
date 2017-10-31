@@ -4,21 +4,21 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-map
 import MapStyles from './MapStyles.json';
 
 const MyMapComponent = compose(
-    withProps( {
-        'googleMapURL': 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places',
-        'loadingElement': <div style={{ 'height': `100%` }} />,
-        'containerElement': <div style={{ 'height': `400px` }} />,
-        'mapElement': <div style={{ 'height': `100%` }} />
-    } ),
-    withScriptjs,
-    withGoogleMap
-)( ( props ) =>
-    <GoogleMap
-        defaultZoom={12}
-        defaultCenter={{ 'lat': 35.6522787, 'lng': 139.7241987 }}
-        defaultOptions={{ 'styles': MapStyles }}
-    >
-        {/* {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} onClick={props.onMarkerClick} />}
+  withProps({
+    googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAg1lkAlzKUw2hoZnMjiHSMGDcg2q3_2Go",
+    loadingElement: <div style={{ height: `100%` }} />,
+    containerElement: <div style={{ height: `400px` }} />,
+    mapElement: <div style={{ height: `100%` }} />,
+  }),
+  withScriptjs,
+  withGoogleMap
+)((props) =>
+  <GoogleMap
+    defaultZoom={12}
+    defaultCenter={{ lat: 35.6522787, lng: 139.7241987 }}
+    defaultOptions={{ styles: MapStyles }}
+  >
+    {/* {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} onClick={props.onMarkerClick} />}
     {props.isMarkerShown && <Marker position={{ lat: -14.397, lng: 140.644 }} onClick={props.onMarkerClick} />} */}
         {props.markers.map( ( data ) => {
             return props.isMarkerShown && <Marker position={{ 'lat': data.lat, 'lng': data.lng }} onClick={props.onMarkerClick} />;

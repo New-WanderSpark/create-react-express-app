@@ -15,6 +15,7 @@ class LoginForm extends Component {
                 .then( ( response ) => {
                     if ( response.data.success ) {
                         localStorage.setItem( 'jwt', response.data.token );
+                        localStorage.setItem( 'user', JSON.stringify( response.data.user ) );
                         document.location = '/dashboard';
                     } else {
                         alert( 'Sorry, login failed.' );
@@ -40,7 +41,9 @@ class LoginForm extends Component {
                                 <div className="row noMarg1">
                                     <Input s={12} label="Password" type='password' validate name='password' id='password'><Icon>lock</Icon></Input>
                                 </div>
-                                <Button waves='light' onClick={this.submitLogin} type="button">Submit<Icon left>cloud</Icon></Button>
+                                {<Button waves='light' onClick={this.submitLogin} type="button">Submit<Icon left>cloud</Icon></Button>}
+
+                                {/* <Link to={{ 'pathname': '/dashboard' }}><Button waves='light' href='/dashboard' type="button">Submit<Icon left>cloud</Icon></Button></Link> */}
                             </form>
                         </div>
                     </div>
