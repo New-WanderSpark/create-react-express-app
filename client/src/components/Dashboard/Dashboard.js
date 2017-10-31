@@ -1,8 +1,3 @@
-/* TO DO:
-*
-*   - Add a mapMarkers property to the state of Dashboard. This should be the array of markers passed to the GoogleMap component.
-*   - The pin place method should add a marker to state.mapMarkers array
- */
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PlaceData from '../../lib/PlaceData';
@@ -96,11 +91,21 @@ class Dashboard extends Component {
 
     // Updates the mapMarkers displayed on the map
     updateMarkers () {
-        const markers = this.state.pinnedPlaces.map( placeData => placeData.geometry.location );
+        const markers = this.state.pinnedPlaces
+            .filter( placeData => Boolean( placeData.geometry ) )
+            .map( placeData => placeData.geometry.location );
         this.setState( { 'mapMarkers': markers } );
     }
 
     render () {
+        // set the center of the google map view to the last pin in the array of pinned places
+        // of the places with a valid geometry object
+        const markers = this.state.mapMarkers;
+        let mapCenter = null;
+        if ( markers.length ) {
+            mapCenter = markers[markers.length - 1];
+        }
+
         return (
             <div className='workdesk'>
                 <SearchMenu>
@@ -115,7 +120,7 @@ class Dashboard extends Component {
                     <Route path='/dashboard' render={() => (
                         <Corkboard
                             places={this.state.pinnedPlaces}
-                            map={<GoogleMaps markers={this.state.mapMarkers} />}
+                            map={<GoogleMaps markers={markers} center={mapCenter} />}
                         />
                     )} />
                     <Route path='/settings' component={Settings}/>

@@ -13,17 +13,21 @@ const MyMapComponent = compose(
     } ),
     withScriptjs,
     withGoogleMap
-)( ( props ) =>
-    <GoogleMap
-        defaultZoom={12}
-        defaultCenter={{ 'lat': 35.6522787, 'lng': 139.7241987 }}
-        defaultOptions={{ 'styles': MapStyles }}
-    >
-        {props.markers.map( ( data, index ) => {
-            return props.isMarkerShown && <Marker key={index} position={{ 'lat': data.lat, 'lng': data.lng }} onClick={props.onMarkerClick} />;
-        } )}
-    </GoogleMap>
-);
+)( ( props ) => {
+    const defaultMapCenter = { 'lat': 35.6522787, 'lng': 139.7241987 }; // japan
+    return (
+        <GoogleMap
+            defaultZoom={12}
+            defaultCenter={props.center || defaultMapCenter}
+            center={props.center || defaultMapCenter }
+            defaultOptions={{ 'styles': MapStyles }}
+        >
+            {props.markers.map( ( data, index ) => {
+                return props.isMarkerShown && <Marker key={index} position={{ 'lat': data.lat, 'lng': data.lng }} onClick={props.onMarkerClick} />;
+            } )}
+        </GoogleMap>
+    );
+} );
 
 class GoogleMaps extends React.PureComponent {
     constructor ( props ) {
@@ -53,15 +57,17 @@ class GoogleMaps extends React.PureComponent {
         return (
             <MyMapComponent
                 isMarkerShown={this.state.isMarkerShown}
-                onMarkerClick={this.handleMarkerClick.bind(this)}
+                onMarkerClick={this.handleMarkerClick.bind( this )}
                 markers={this.props.markers}
+                center={this.props.center}
             />
         );
     }
 }
 
 GoogleMaps.propTypes = {
-    'markers': PropTypes.arrayOf( PropTypes.object )
+    'markers': PropTypes.arrayOf( PropTypes.object ),
+    'center': PropTypes.object
 };
 
 export default GoogleMaps;
