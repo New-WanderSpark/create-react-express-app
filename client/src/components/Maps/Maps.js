@@ -1,5 +1,6 @@
 import React from 'react';
 import { compose, withProps } from 'recompose';
+import PropTypes from 'prop-types';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import MapStyles from './MapStyles.json';
 
@@ -18,8 +19,6 @@ const MyMapComponent = compose(
         defaultCenter={{ 'lat': 35.6522787, 'lng': 139.7241987 }}
         defaultOptions={{ 'styles': MapStyles }}
     >
-        {/* {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} onClick={props.onMarkerClick} />}
-    {props.isMarkerShown && <Marker position={{ lat: -14.397, lng: 140.644 }} onClick={props.onMarkerClick} />} */}
         {props.markers.map( ( data ) => {
             return props.isMarkerShown && <Marker position={{ 'lat': data.lat, 'lng': data.lng }} onClick={props.onMarkerClick} />;
         } )}
@@ -31,7 +30,7 @@ class GoogleMaps extends React.PureComponent {
         super( props );
         this.state = {
             'isMarkerShown': false,
-            'markers': [{'lat': 35.6590537, 'lng': 139.6983691}, {'lat': 35.6654861, 'lng': 139.7684781}, {'lat': 35.6154908, 'lng': 139.7753201}]
+            'markers': props.markers
         };
     }
 
@@ -60,5 +59,9 @@ class GoogleMaps extends React.PureComponent {
         );
     }
 }
+
+GoogleMaps.propTypes = {
+    'markers': PropTypes.arrayOf( PropTypes.object )
+};
 
 export default GoogleMaps;

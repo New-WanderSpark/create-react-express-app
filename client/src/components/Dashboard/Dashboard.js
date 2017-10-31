@@ -95,6 +95,11 @@ class Dashboard extends Component {
     }
 
     render () {
+        const mapMarkers = [
+            {'lat': 35.6590537, 'lng': 139.6983691},
+            {'lat': 35.6654861, 'lng': 139.7684781},
+            {'lat': 35.6154908, 'lng': 139.7753201}
+        ];
         return (
             <div className='workdesk'>
                 <SearchMenu>
@@ -106,7 +111,12 @@ class Dashboard extends Component {
                 <UserFAB />
                 <Banner />
                 <Switch>
-                    <Route path='/dashboard' render={() => <Corkboard places={this.state.pinnedPlaces} map={<GoogleMaps />} />} />
+                    <Route path='/dashboard' render={() => (
+                        <Corkboard
+                            places={this.state.pinnedPlaces}
+                            map={<GoogleMaps markers={mapMarkers} />}
+                        />
+                    )} />
                     <Route path='/settings' component={Settings}/>
                 </Switch>
                 <Footer />
