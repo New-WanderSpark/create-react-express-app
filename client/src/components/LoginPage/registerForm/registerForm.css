@@ -2,9 +2,11 @@
     margin: auto;
     width: 60%;
     padding: 10px;
+    background: #f4f2f2;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-.registrationBtn {
-    float: right;
-    top: 48px;
+div#registerFormBtn.center-align {
+    background: #f4f2f2;
 }

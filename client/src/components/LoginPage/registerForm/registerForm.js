@@ -93,9 +93,17 @@ class RegisterForm extends Component {
                 <Row>
                     <Col s={12} m={12}>
                         <Input s={6} label='Name your trip!' validate name='tripName'><Icon>airplanemode_active</Icon></Input>
-                        <Button className='registrationBtn' s={6} waves='light' onClick={this.submitRegistration}>Submit<Icon left>cloud</Icon></Button>
                     </Col>
                 </Row>
+
+                <div className="center-align" id="registerFormBtn">
+                    <Row>
+                        <Col s={12} m={12}>
+                            <Button className='registrationBtn' s={6} waves='light' onClick={this.submitRegistration}>Submit<Icon left>cloud</Icon></Button>
+                        </Col>
+                    </Row>
+                </div>
+
             </div>
         );
     }

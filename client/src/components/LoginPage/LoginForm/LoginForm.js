@@ -43,7 +43,7 @@ class LoginForm extends Component {
                     </Col>
                 </Row>
 
-                <div className="center-align" id="formBtn">
+                <div className="center-align" id="loginFormBtn">
                     <Row>
                         <Col s={12} m={12}>
                             {<Button className='loginSubmit' s={12} waves='light' onClick={this.submitLogin}>Submit<Icon left>cloud</Icon></Button>}
