@@ -1,7 +1,22 @@
 const express = require( 'express' );
 const passport = require( 'passport' );
+const User = require( '../models/users' );
 
 const router = new express.Router();
+
+/**
+ * Lookup userId
+ * 
+ * @param {string} userName
+ * @returns {Promise} Promise object represents the user id string
+ */
+function getUserId ( userName ) {
+    return User
+        .findOne( { userName } )
+        .then( dbModel => {
+            if ( dbModel ) return dbModel.id;
+        } );
+}
 
 /**
  * Validate the sign up form
@@ -133,12 +148,23 @@ router.post( '/login', ( req, res, next ) => {
             } );
         }
 
-        return res.json( {
-            'success': true,
-            'message': 'You have successfully logged in!',
-            token,
-            'user': userData
-        } );
+        // add user id to userData and send response
+        getUserId( userData.userName )
+            .then( userId => {
+                userData.userId = userId;
+                return res.json( {
+                    'success': true,
+                    'message': 'You have successfully logged in!',
+                    token,
+                    'user': userData
+                } );
+            } )
+            .catch( err => {
+                return res.status( 400 ).json( {
+                    'success': false,
+                    'message': err.message
+                } );
+            } );
     } )( req, res, next );
 } );
 

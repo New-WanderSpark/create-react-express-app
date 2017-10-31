@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import placesAPI from '../../lib/placesAPI';
 import PlaceData from '../../lib/PlaceData';
-import tripsAPI from '../../lib/tripsAPI';
+import { Api } from '../../lib/Api';
 
 // COMPONENTS
 import './Dashboard.css';
@@ -17,37 +16,39 @@ import UserFAB from '../UserFAB';
 import ViewPlaceDialog from '../ViewPlaceDialog';
 
 class Dashboard extends Component {
-    constructor ( props ) {
-        super( props );
-        console.log( `user id: ${this.props.userId}`);
+    constructor () {
+        super();
+        const userId = JSON.parse( window.localStorage.getItem( 'user' ) ).userId;
         this.state = {
             'placeDialogOpen': false,
             'pinnedPlaces': [], // array of PlaceData instances
             'selectedPlace': {},
             'tripId': ''
         };
+
         // get the trip for that user and update the tripId and pinnedPlaces
-        tripsAPI.getTripData( props.userId )
+        Api.getTripData( userId )
             .then( result => {
                 if ( result ) {
-                    this.setState( { 'tripId': result._id } );
-                    this.loadPlaceData( result.placeIds );
+                    this.setState( { 'tripId': result.data._id } );
+                    this.loadPlaceData( result.data.placeIds );
                 } else {
-                    console.log( `unable to access trip data for userId ${props.userId}` );
+                    console.log( `unable to access trip data for userId "${userId}"` );
                 }
             } )
-            .catch( error => console.log( `error occured loading trip data for userId ${props.userId}`, error ) );
+            .catch( error => console.log( `error occured loading trip data for userId "${userId}"`, error ) );
     }
 
     // Accepts an array of placeids and requests detailss for each place and updates the state accordingly.
     loadPlaceData ( placeIdArr ) {
+        if ( !placeIdArr ) return void 0;
         Promise
             // use .all to preserve the order of the data despite async
-            .all( placeIdArr.map( id => placesAPI.getDetails( id ) ) )
+            .all( placeIdArr.map( id => Api.getDetails( id ) ) )
 
             // create a new PlaceData object for each response from google
             .then( resultArr => {
-                this.setState( { 'pinnedPlaces': resultArr.map( detailsObj => new PlaceData( detailsObj ) ) } );
+                this.setState( { 'pinnedPlaces': resultArr.map( result => new PlaceData( result.data ) ) } );
             } )
 
             // TODO error handling
@@ -64,28 +65,15 @@ class Dashboard extends Component {
         this.setState( { 'placeDialogOpen': false } );
     }
 
-    // adds additional details to an instance of PlaceData if not already loaded
-    loadPlaceDetails ( place ) {
-        return placesAPI.getDetails( place.placeId )
-            .then( result => {
-                if ( result ) {
-                    place.setDetails( result );
-                } else {
-                    console.log( 'unable to load place details' );
-                }
-            } )
-            .catch( error => console.log( 'error occured loading details', error ) );
-    }
-
     // pins place to the place collection
     pinPlace ( place ) {
         // TODO add procedure to add the place to the collection of places pinned to the main trip area
-        placesAPI.getDetails( place.placeId )
+        Api.getDetails( place.placeId )
             .then( result => {
-                if ( result ) {
-                    place.setDetails( result );
+                if ( result.data ) {
+                    place.setDetails( result.data );
                     const placeIdArr = this.state.pinnedPlaces.map( el => el.placeId ).concat( place.placeId );
-                    tripsAPI.updatePlaces( this.state.tripId, placeIdArr )
+                    Api.updatePlaces( this.state.tripId, placeIdArr )
                         .then( result => {
                             if ( result ) {
                                 this.setState( { 'pinnedPlaces': this.state.pinnedPlaces.concat( place ) } );
