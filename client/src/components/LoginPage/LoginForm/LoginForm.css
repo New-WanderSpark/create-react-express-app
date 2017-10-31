@@ -7,8 +7,6 @@
     margin-bottom: 20px;
 }
 
-/* .center-align {
-    text-align: center;
-    margin: auto;
+div#formBtn.center-align {
     background: #f4f2f2;
-} */
+}
