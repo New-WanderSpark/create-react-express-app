@@ -1,12 +1,14 @@
 #signIn {
     margin: auto;
-    width: 50%;
+    width: 400px;
     padding: 10px;
     background: #f4f2f2;
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
-.loginSubmit {
-    float: left;
-}
+/* .center-align {
+    text-align: center;
+    margin: auto;
+    background: #f4f2f2;
+} */

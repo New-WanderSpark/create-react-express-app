@@ -43,8 +43,8 @@ class LoginForm extends Component {
                     </Col>
                 </Row>
 
-                <div className="valign-wrapper">
-                    <Row className="center">
+                <div className="center-align">
+                    <Row>
                         <Col s={12} m={12}>
                             {<Button className='loginSubmit' s={12} waves='light' onClick={this.submitLogin}>Submit<Icon left>cloud</Icon></Button>}
                         </Col>
