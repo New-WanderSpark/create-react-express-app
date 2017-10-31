@@ -71,28 +71,43 @@ class RegisterForm extends Component {
             <div id="registerForm">
                 <Row>
                     <Col s={12} m={12}>
-                        <Input s={6} label='Username' validate name='userName'><Icon>account_box</Icon></Input>
-                        <Input s={6} label='First Name' validate name='firstName'><Icon>account_box</Icon></Input>
+                        <Input s={12} label='Username' validate name='userName'><Icon>account_box</Icon></Input>
                     </Col>
                 </Row>
 
                 <Row>
                     <Col s={12} m={12}>
-                        <Input s={6} label='Password' type='password' validate name='password'><Icon>lock</Icon></Input>
-                        <Input s={6} label='Last Name' validate name='lastName'><Icon>account_box</Icon></Input>
+                        <Input s={12} label='First Name' validate name='firstName'><Icon>account_box</Icon></Input>
                     </Col>
                 </Row>
 
                 <Row>
                     <Col s={12} m={12}>
-                        <Input s={6} label='Confirm Password' type='password' validate name='password2'><Icon>lock</Icon></Input>
-                        <Input s={6} label='Email' validate name='email'><Icon>email</Icon></Input>
+                        <Input s={12} label='Last Name' validate name='lastName'><Icon>account_box</Icon></Input>
                     </Col>
                 </Row>
 
                 <Row>
                     <Col s={12} m={12}>
-                        <Input s={6} label='Name your trip!' validate name='tripName'><Icon>airplanemode_active</Icon></Input>
+                        <Input s={12} label='Password' type='password' validate name='password'><Icon>lock</Icon></Input>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col s={12} m={12}>
+                        <Input s={12} label='Confirm Password' type='password' validate name='password2'><Icon>lock</Icon></Input>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col s={12} m={12}>
+                        <Input s={12} label='Email' validate name='email'><Icon>email</Icon></Input>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col s={12} m={12}>
+                        <Input s={12} label='Name your trip!' validate name='tripName'><Icon>airplanemode_active</Icon></Input>
                     </Col>
                 </Row>
 
