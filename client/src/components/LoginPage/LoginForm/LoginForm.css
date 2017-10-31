@@ -1,3 +1,12 @@
 #signIn {
-    width: 400px;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    background: #f4f2f2;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.loginSubmit {
+    float: left;
 }
