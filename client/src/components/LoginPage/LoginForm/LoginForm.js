@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import { Input, Button, Icon } from 'react-materialize';
+import { Input, Button, Icon, Row, Col } from 'react-materialize';
 import './LoginForm.css';
 import { Api } from '../../../lib/Api';
 
@@ -30,24 +30,27 @@ class LoginForm extends Component {
 
     render () {
         return (
-            <div>
-                <div className="container" id="signIn">
-                    <div className="card-panel">
-                        <div className="row noMarg1">
-                            <form className="col s12">
-                                <div className="row noMarg1">
-                                    <Input s={12} label="Username" validate name='userName' id='userName'><Icon>account_box</Icon></Input>
-                                </div>
-                                <div className="row noMarg1">
-                                    <Input s={12} label="Password" type='password' validate name='password' id='password'><Icon>lock</Icon></Input>
-                                </div>
-                                {<Button waves='light' onClick={this.submitLogin} type="button">Submit<Icon left>cloud</Icon></Button>}
+            <div className="container" id="signIn">
+                <Row>
+                    <Col s={12} m={12}>
+                        <Input s={12} label="Username" validate name='userName' id='userName'><Icon>account_box</Icon></Input>
+                    </Col>
+                </Row>
 
-                                {/* <Link to={{ 'pathname': '/dashboard' }}><Button waves='light' href='/dashboard' type="button">Submit<Icon left>cloud</Icon></Button></Link> */}
-                            </form>
-                        </div>
-                    </div>
+                <Row>
+                    <Col s={12} m={12}>
+                        <Input s={12} label="Password" type='password' validate name='password' id='password'><Icon>lock</Icon></Input>
+                    </Col>
+                </Row>
+
+                <div className="center-align" id="loginFormBtn">
+                    <Row>
+                        <Col s={12} m={12}>
+                            {<Button className='loginSubmit' s={12} waves='light' onClick={this.submitLogin}>Submit<Icon left>cloud</Icon></Button>}
+                        </Col>
+                    </Row>
                 </div>
+
             </div>
         );
     }
