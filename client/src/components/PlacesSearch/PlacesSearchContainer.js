@@ -3,8 +3,8 @@
 
 // DEPENDENCIES
 import React, { Component } from 'react';
-import placesAPI from '../../lib/placesAPI';
 import PlaceData from '../../lib/PlaceData'; // PlaceData class
+import { Api } from '../../lib/Api';
 
 // COMPONENTS
 import SearchForm from './components/SearchForm';
@@ -27,22 +27,20 @@ class PlacesSearchContainer extends Component {
         } );
     }
 
-    // TODO When a user clicks the submit button, the /places/search api is sent a request for search results.
-    // The results of this request should be displayed to the user.
+    // Performs a textSearch on google places api.
     handleSubmit ( event ) {
         event.preventDefault();
-        // window.alert(`Search for ${this.state.searchValue}`);
         this.loadPlaces( this.state.searchValue );
     }
 
     // Request places from server.
     loadPlaces ( queryString ) {
-        return placesAPI.textSearch( queryString )
+        return Api.textSearch( queryString )
             .then( ( result ) => {
                 // get an array of PlaceData objects from the results
-                const places = result.map( value => new PlaceData( value ) );
+                const places = result.data.map( value => new PlaceData( value ) );
                 return this.setState( { 'places': places } );
-            })
+            } )
             // Unexpected error occured. Log it.
             .catch( console.log );
     }
