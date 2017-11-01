@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { Button, Icon, Row, Input, Col } from 'react-materialize';
 import './registerForm.css';
 import { Api } from '../../../lib/Api';
-import 'react-toastify/dist/ReactToastify.min.css';
 import { toast } from 'react-toastify';
 
 class RegisterForm extends Component {
@@ -11,7 +10,6 @@ class RegisterForm extends Component {
      */
     submitRegistration () {
         let formContents = document.getElementById( 'registerForm' );
-        console.log( formContents );
         /**
          * Make sure we found the form.
          */
@@ -24,7 +22,7 @@ class RegisterForm extends Component {
              * Loop through the elements and create an object.
              */
             for ( let i = 0; i < formElements.length; i++ ) {
-                let name = formElements[i].getAttribute( 'name' );
+                let name = formElements[i].getAttribute( 'data-name' );
                 let value = formElements[i].getAttribute( 'value' );
 
                 if ( !value ) {
@@ -42,24 +40,33 @@ class RegisterForm extends Component {
             }
 
             /**
+             * Display any errors
+             */
+            if ( errors.length ) {
+                errors.forEach( ( error ) => {
+                    toast.error( error );
+                } );
+                return false;
+            }
+
+            /**
              * Send the request to the register endpoint.
              */
             Api
                 .register( formData )
                 .then( ( response ) => {
                     /**
-                     * TODO: add success message and redirect to login page.
+                     * TODO: add redirect to login page.
                      */
 
                     if ( response.data.success ) {
-                        alert( response.data.message );
+                        toast.success( 'You have successfully registered!' );
                     } else {
-                        alert( response.data.error );
+                        toast.error( 'There was a problem registering: ' + response.data.error );
                     }
                 } )
                 .catch( ( err ) => {
-                    // throw new Error( err );
-                    console.log( err );
+                    toast.error( 'There was a problem registering: ' + err );
                 } );
         } else {
             console.log( 'No form found.' );
@@ -71,43 +78,43 @@ class RegisterForm extends Component {
             <div id="registerForm">
                 <Row>
                     <Col s={12} m={12}>
-                        <Input s={12} label='Username' validate name='userName'><Icon>account_box</Icon></Input>
+                        <Input s={12} label='Username' data-name="Username" validate name='userName'><Icon>account_box</Icon></Input>
                     </Col>
                 </Row>
 
                 <Row>
                     <Col s={12} m={12}>
-                        <Input s={12} label='First Name' validate name='firstName'><Icon>account_box</Icon></Input>
+                        <Input s={12} label='First Name' data-name='First Name' validate name='firstName'><Icon>account_box</Icon></Input>
                     </Col>
                 </Row>
 
                 <Row>
                     <Col s={12} m={12}>
-                        <Input s={12} label='Last Name' validate name='lastName'><Icon>account_box</Icon></Input>
+                        <Input s={12} label='Last Name' data-name='Last Name' validate name='lastName'><Icon>account_box</Icon></Input>
                     </Col>
                 </Row>
 
                 <Row>
                     <Col s={12} m={12}>
-                        <Input s={12} label='Password' type='password' validate name='password'><Icon>lock</Icon></Input>
+                        <Input s={12} label='Password' type='password' data-name='Password' validate name='password'><Icon>lock</Icon></Input>
                     </Col>
                 </Row>
 
                 <Row>
                     <Col s={12} m={12}>
-                        <Input s={12} label='Confirm Password' type='password' validate name='password2'><Icon>lock</Icon></Input>
+                        <Input s={12} label='Confirm Password' type='password' data-name='Password Confirmation' validate name='password2'><Icon>lock</Icon></Input>
                     </Col>
                 </Row>
 
                 <Row>
                     <Col s={12} m={12}>
-                        <Input s={12} label='Email' validate name='email'><Icon>email</Icon></Input>
+                        <Input s={12} label='Email' data-name='Email' validate name='email'><Icon>email</Icon></Input>
                     </Col>
                 </Row>
 
                 <Row>
                     <Col s={12} m={12}>
-                        <Input s={12} label='Name your trip!' validate name='tripName'><Icon>airplanemode_active</Icon></Input>
+                        <Input s={12} label='Name your trip!' data-name='Trip Name' validate name='tripName'><Icon>airplanemode_active</Icon></Input>
                     </Col>
                 </Row>
 
@@ -118,7 +125,6 @@ class RegisterForm extends Component {
                         </Col>
                     </Row>
                 </div>
-
             </div>
         );
     }
