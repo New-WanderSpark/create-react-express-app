@@ -13,9 +13,8 @@ class App extends Component {
                 <div>
                     <Route exact={true} path='/' component={LoginPage} />
                     <Route exact={true} path='/login' component={LoginPage} />
-                    {/* TODO userId prop on the Dashboard component should reflect the logged in user. Currently using a fixed userId for testing. */}
-                    <Route exact={true} path='/dashboard' render={() => <Dashboard userId='59f3414d44cd2500123aa770' />} />
-                    <Route exact={true} path='/settings' render={() => <Dashboard userId='59f3414d44cd2500123aa770' />} />
+                    <Route exact={true} path='/dashboard' render={() => <Dashboard />} />
+                    <Route exact={true} path='/settings' render={() => <Dashboard />} />
                     <ToastContainer
                         position="top-right"
                         type="success"
