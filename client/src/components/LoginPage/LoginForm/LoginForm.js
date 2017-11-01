@@ -17,7 +17,7 @@ class LoginForm extends Component {
                     if ( response.data.success ) {
                         localStorage.setItem( 'jwt', response.data.token );
                         localStorage.setItem( 'user', JSON.stringify( response.data.user ) );
-                        document.location = '/dashboard';
+                        this.props.history.push( '/dashboard' );
                     } else {
                         toast.error( 'There was a problem registering: ' + response.data.error );
                     }
@@ -48,7 +48,7 @@ class LoginForm extends Component {
                 <div className="center-align" id="loginFormBtn">
                     <Row>
                         <Col s={12} m={12}>
-                            {<Button className='loginSubmit' s={12} waves='light' onClick={this.submitLogin} type='button'>Submit<Icon left>cloud</Icon></Button>}
+                            {<Button className='loginSubmit' s={12} waves='light' onClick={this.submitLogin.bind( this )} type='button'>Submit<Icon left>cloud</Icon></Button>}
                         </Col>
                     </Row>
                 </div>

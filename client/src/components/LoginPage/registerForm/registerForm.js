@@ -62,6 +62,7 @@ class RegisterForm extends Component {
 
                     if ( response.data.success ) {
                         toast.success( 'You have successfully registered!' );
+                        this.props.history.push( '/login' );
                     } else {
                         toast.error( 'There was a problem registering: ' + response.data.error );
                     }
@@ -122,7 +123,7 @@ class RegisterForm extends Component {
                 <div className="center-align" id="registerFormBtn">
                     <Row>
                         <Col s={12} m={12}>
-                            <Button className='registrationBtn' s={6} waves='light' onClick={this.submitRegistration}>Submit<Icon left>cloud</Icon></Button>
+                            <Button className='registrationBtn' s={6} waves='light' onClick={this.submitRegistration.bind( this )}>Submit<Icon left>cloud</Icon></Button>
                         </Col>
                     </Row>
                 </div>
