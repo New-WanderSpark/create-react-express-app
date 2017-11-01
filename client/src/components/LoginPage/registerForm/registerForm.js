@@ -22,11 +22,12 @@ class RegisterForm extends Component {
              * Loop through the elements and create an object.
              */
             for ( let i = 0; i < formElements.length; i++ ) {
-                let name = formElements[i].getAttribute( 'data-name' );
+                let name = formElements[i].getAttribute( 'name' );
+                let formatedName = formElements[i].getAttribute( 'data-name' );
                 let value = formElements[i].getAttribute( 'value' );
 
                 if ( !value ) {
-                    errors.push( name + ' is a required field.' );
+                    errors.push( formatedName + ' is a required field.' );
                 }
 
                 formData[name] = value;
