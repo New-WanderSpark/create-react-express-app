@@ -8,6 +8,7 @@ import './Dashboard.css';
 import Banner from '../Banner';
 import Corkboard from '../Corkboard';
 import Footer from '../Footer';
+import GoogleMaps from '../Maps';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PlacesSearchContainer from '../PlacesSearch/PlacesSearchContainer';
 import SearchMenu from '../SearchMenu';
@@ -20,6 +21,7 @@ class Dashboard extends Component {
         super();
         const userId = JSON.parse( window.localStorage.getItem( 'user' ) ).userId;
         this.state = {
+            'mapMarkers': [],
             'placeDialogOpen': false,
             'pinnedPlaces': [], // array of PlaceData instances
             'selectedPlace': {},
@@ -31,18 +33,19 @@ class Dashboard extends Component {
             .then( result => {
                 if ( result ) {
                     this.setState( { 'tripId': result.data._id } );
-                    this.loadPlaceData( result.data.placeIds );
+                    return this.loadPlaceData( result.data.placeIds );
                 } else {
-                    console.log( `unable to access trip data for userId "${userId}"` );
+                    return console.log( `unable to access trip data for userId "${userId}"` );
                 }
             } )
+            .then( this.updateMarkers.bind( this ) )
             .catch( error => console.log( `error occured loading trip data for userId "${userId}"`, error ) );
     }
 
-    // Accepts an array of placeids and requests detailss for each place and updates the state accordingly.
+    // Accepts an array of placeids and requests details for each place and updates the state accordingly.
     loadPlaceData ( placeIdArr ) {
         if ( !placeIdArr ) return void 0;
-        Promise
+        return Promise
             // use .all to preserve the order of the data despite async
             .all( placeIdArr.map( id => Api.getDetails( id ) ) )
 
@@ -67,7 +70,6 @@ class Dashboard extends Component {
 
     // pins place to the place collection
     pinPlace ( place ) {
-        // TODO add procedure to add the place to the collection of places pinned to the main trip area
         Api.getDetails( place.placeId )
             .then( result => {
                 if ( result.data ) {
@@ -79,6 +81,7 @@ class Dashboard extends Component {
                                 this.setState( { 'pinnedPlaces': this.state.pinnedPlaces.concat( place ) } );
                             }
                         } )
+                        .then( this.updateMarkers.bind( this ) )
                         .catch( error => console.log( 'error occured updating the trip', error ) );
                 }
             } )
@@ -86,8 +89,23 @@ class Dashboard extends Component {
         this.closePlaceDialog();
     }
 
+    // Updates the mapMarkers displayed on the map
+    updateMarkers () {
+        const markers = this.state.pinnedPlaces
+            .filter( placeData => Boolean( placeData.geometry ) )
+            .map( placeData => placeData.geometry.location );
+        this.setState( { 'mapMarkers': markers } );
+    }
+
     render () {
-        // const myCorkboard = () => <Corkboard places={this.state.pinnedPlaces} />;
+        // set the center of the google map view to the last pin in the array of pinned places
+        // of the places with a valid geometry object
+        const markers = this.state.mapMarkers;
+        let mapCenter = null;
+        if ( markers.length ) {
+            mapCenter = markers[markers.length - 1];
+        }
+
         return (
             <div className='workdesk'>
                 <SearchMenu>
@@ -99,9 +117,12 @@ class Dashboard extends Component {
                 <UserFAB />
                 <Banner />
                 <Switch>
-                    <Route path='/dashboard' render={() => <Corkboard places={this.state.pinnedPlaces} />} />
-                    {/* <Route path='/settings' component={Banner} /> */}
-                    {/* <Route path='/dashboard' component={Corkboard}/> */}
+                    <Route path='/dashboard' render={() => (
+                        <Corkboard
+                            places={this.state.pinnedPlaces}
+                            map={<GoogleMaps markers={markers} center={mapCenter} />}
+                        />
+                    )} />
                     <Route path='/settings' component={Settings}/>
                 </Switch>
                 <Footer />
