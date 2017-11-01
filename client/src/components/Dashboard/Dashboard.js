@@ -1,35 +1,65 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import tripsAPI from '../../lib/tripsAPI';
+import PlaceData from '../../lib/PlaceData';
+import { Api } from '../../lib/Api';
 
 // COMPONENTS
 import './Dashboard.css';
 import Banner from '../Banner';
 import Corkboard from '../Corkboard';
 import Footer from '../Footer';
+import GoogleMaps from '../Maps';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PlacesSearchContainer from '../PlacesSearch/PlacesSearchContainer';
 import SearchMenu from '../SearchMenu';
 import Settings from '../Settings';
 import UserFAB from '../UserFAB';
 import ViewPlaceDialog from '../ViewPlaceDialog';
-import placesAPI from '../../lib/placesAPI';
-import PlaceData from '../../lib/PlaceData';
 
 class Dashboard extends Component {
-    constructor ( props ) {
-        super( props );
+    constructor () {
+        super();
+        const userId = JSON.parse( window.localStorage.getItem( 'user' ) ).userId;
         this.state = {
+            'mapMarkers': [],
             'placeDialogOpen': false,
-            'pinnedPlaces': [],
+            'pinnedPlaces': [], // array of PlaceData instances
             'selectedPlace': {},
-            'tripId': '59f0080ef2f4740b1c555e30' // using test tripId
+            'tripId': ''
         };
+
+        // get the trip for that user and update the tripId and pinnedPlaces
+        Api.getTripData( userId )
+            .then( result => {
+                if ( result ) {
+                    this.setState( { 'tripId': result.data._id } );
+                    return this.loadPlaceData( result.data.placeIds );
+                } else {
+                    return console.log( `unable to access trip data for userId "${userId}"` );
+                }
+            } )
+            .then( this.updateMarkers.bind( this ) )
+            .catch( error => console.log( `error occured loading trip data for userId "${userId}"`, error ) );
+    }
+
+    // Accepts an array of placeids and requests details for each place and updates the state accordingly.
+    loadPlaceData ( placeIdArr ) {
+        if ( !placeIdArr ) return void 0;
+        return Promise
+            // use .all to preserve the order of the data despite async
+            .all( placeIdArr.map( id => Api.getDetails( id ) ) )
+
+            // create a new PlaceData object for each response from google
+            .then( resultArr => {
+                this.setState( { 'pinnedPlaces': resultArr.map( result => new PlaceData( result.data ) ) } );
+            } )
+
+            // TODO error handling
+            .catch( error => console.log( `A problem occured loading place details. Place ids: ${placeIdArr}`, error ) );
     }
 
     // set the current place for the place details dialog and show the dialog
     showPlaceDialog ( place ) {
-        console.log( place );
         this.setState( { 'selectedPlace': place, 'placeDialogOpen': true } );
     }
 
@@ -38,55 +68,44 @@ class Dashboard extends Component {
         this.setState( { 'placeDialogOpen': false } );
     }
 
-    // gets place data for all placesIds in the array of pinned places in the trip data.
-    loadPinnedPlaces () {
-        if ( this.state.tripId ) {}
-        tripsAPI.getTripData( this.state.tripId );
-    }
-
-    // adds additional details to an instance of PlaceData if not already loaded
-    loadPlaceDetails ( place ) {
-        return placesAPI.getDetails( place.placeId )
-            .then( result => {
-                if ( result ) {
-                    place.setDetails( result );
-                    console.log( place );
-                    console.log( this.state.pinnedPlaces );
-                } else {
-                    console.log( 'unable to load place details' );
-                }
-            } )
-            .catch( error => console.log( 'error occured loading details', error ) );
-    }
-
     // pins place to the place collection
     pinPlace ( place ) {
-        // TODO add procedure to add the place to the collection of places pinned to the main trip area
-        // and send request to save the trip in the data base
-        // send api request to add trip
-        // tripsAPI.addPlace( place.placeId )
-        //     .then( result => {
-        //         if ( result ) {
-        //             return tripsAPI.getTripData( )
-        //         } else {
-        //             console.log( 'a problem occured saving place to trip' );
-        //         }
-        //     } )
-        //     // TODO notify user of problem if error occurs
-        //     .catch( console.log );
-        // // console log the result
-        placesAPI.getDetails( place.placeId )
+        Api.getDetails( place.placeId )
             .then( result => {
-                if ( result ) {
-                    place.setDetails( result );
-                    this.setState( { 'pinnedPlaces': this.state.pinnedPlaces.concat( place ) } );
+                if ( result.data ) {
+                    place.setDetails( result.data );
+                    const placeIdArr = this.state.pinnedPlaces.map( el => el.placeId ).concat( place.placeId );
+                    Api.updatePlaces( this.state.tripId, placeIdArr )
+                        .then( result => {
+                            if ( result ) {
+                                this.setState( { 'pinnedPlaces': this.state.pinnedPlaces.concat( place ) } );
+                            }
+                        } )
+                        .then( this.updateMarkers.bind( this ) )
+                        .catch( error => console.log( 'error occured updating the trip', error ) );
                 }
             } )
-            .catch( err => console.log( 'failed to load place details', err ) );        
+            .catch( err => console.log( 'failed to load place details', err ) );
         this.closePlaceDialog();
     }
+
+    // Updates the mapMarkers displayed on the map
+    updateMarkers () {
+        const markers = this.state.pinnedPlaces
+            .filter( placeData => Boolean( placeData.geometry ) )
+            .map( placeData => placeData.geometry.location );
+        this.setState( { 'mapMarkers': markers } );
+    }
+
     render () {
-        // const myCorkboard = () => <Corkboard places={this.state.pinnedPlaces} />;
+        // set the center of the google map view to the last pin in the array of pinned places
+        // of the places with a valid geometry object
+        const markers = this.state.mapMarkers;
+        let mapCenter = null;
+        if ( markers.length ) {
+            mapCenter = markers[markers.length - 1];
+        }
+
         return (
             <div className='workdesk'>
                 <SearchMenu>
@@ -98,9 +117,12 @@ class Dashboard extends Component {
                 <UserFAB />
                 <Banner />
                 <Switch>
-                    <Route path='/dashboard' render={() => <Corkboard places={this.state.pinnedPlaces} />} />
-                    {/* <Route path='/settings' component={Banner} /> */}
-                    {/* <Route path='/dashboard' component={Corkboard}/> */}
+                    <Route path='/dashboard' render={() => (
+                        <Corkboard
+                            places={this.state.pinnedPlaces}
+                            map={<GoogleMaps markers={markers} center={mapCenter} />}
+                        />
+                    )} />
                     <Route path='/settings' component={Settings}/>
                 </Switch>
                 <Footer />

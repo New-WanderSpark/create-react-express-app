@@ -1,6 +1,7 @@
-footer.page-footer {
-    position: absolute;
+div.center-align {
     width: 100%;
     color: white;
-    background-color: #38435a;
-  }
+    background-color: #afb0b3;
+    padding: 5px;
+    font-size: 18px;
+}

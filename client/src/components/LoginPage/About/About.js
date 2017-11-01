@@ -1,14 +1,13 @@
 import React from 'react';
 import { Parallax } from 'react-materialize';
 import './About.css';
-import Airplanes from './sydneyKingsford.jpg';
-import TaxiCab from './travel.jpg';
-import RegisterForm from '../registerForm/registerForm';
+import Map from './landing-img1.jpeg';
+import Photos from './landing-img2.jpeg';
 
 const About = () => {
     return (
         <div>
-            <Parallax imageSrc={Airplanes} />
+            <Parallax imageSrc={Map} />
             <div className="section white">
                 <div className="row container">
                     <h2 className="header">About WanderSpark</h2>
@@ -20,8 +19,7 @@ const About = () => {
                     </p>
                 </div>
             </div>
-            <Parallax imageSrc={TaxiCab} />
-            <RegisterForm />
+            <Parallax imageSrc={Photos} />
         </div>
     );
 };

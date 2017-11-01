@@ -1,0 +1,12 @@
+#signIn {
+    margin: auto;
+    width: 40%;
+    padding: 10px;
+    background: #f4f2f2;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+div#loginFormBtn.center-align {
+    background: #f4f2f2;
+}

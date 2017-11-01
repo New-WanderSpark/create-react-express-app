@@ -1,18 +1,19 @@
+import PlaceData from '../../lib/PlaceData';
+import PropTypes from 'prop-types';
 import React from 'react';
-import Shibuya from './shibuya.png';
+
+// Import Components
 import './Corkboard.css';
-import GoogleMaps from "../Maps";
-import { Card, CardTitle } from 'react-materialize';
 import PlacePinCard from './PlacePinCard';
 
 const Corkboard = ( props ) => {
-    let placeCards;
+    let placeCards = [];
     if ( props.places ) {
-        placeCards = props.places.map(place => (
+        placeCards = props.places.map( place => (
             <div className="col s12 m4" key={place.placeId}>
                 <PlacePinCard place={place} />
             </div>
-        ));
+        ) );
     }
     return (
         <div className="background-image">
@@ -20,14 +21,17 @@ const Corkboard = ( props ) => {
                 <div className="row">
                     {placeCards}
                     <div className="col s12 m12">
-                        <GoogleMaps />
+                        {props.map}
                     </div>
-
                 </div>
             </div>
-
         </div>
     );
+};
+
+Corkboard.propTypes = {
+    'places': PropTypes.arrayOf( PropTypes.instanceOf( PlaceData ) ),
+    'map': PropTypes.element
 };
 
 export default Corkboard;

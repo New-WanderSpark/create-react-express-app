@@ -1,3 +1,4 @@
+const mongoose = require( 'mongoose' );
 const Trip = require( '../models/trips' );
 
 // Defining methods for the tripsController
@@ -5,6 +6,12 @@ module.exports = {
     'create': function ( req, res ) {
         Trip
             .create( req.body )
+            .then( dbModel => res.json( dbModel ) )
+            .catch( err => res.status( 422 ).json( err ) );
+    },
+    'findByOwner': function ( req, res ) {
+        Trip
+            .findOne( { 'ownerId': req.body.ownerId } )
             .then( dbModel => res.json( dbModel ) )
             .catch( err => res.status( 422 ).json( err ) );
     },
@@ -17,7 +24,7 @@ module.exports = {
     },
     'update': function ( req, res ) {
         Trip
-            .findOneAndUpdate( { '_id': req.params.id }, req.body )
+            .findOneAndUpdate( { '_id': req.params.id }, { 'placeIds': req.body.placeIds }, { 'new': true } )
             .then( dbModel => res.json( dbModel ) )
             .catch( err => res.status( 422 ).json( err ) );
     },
