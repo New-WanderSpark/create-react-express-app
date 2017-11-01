@@ -1,7 +1,7 @@
 import React from 'react';
 import './UserFAB.css';
 import { Button } from 'react-materialize';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const UserFAB = () =>
     <Button floating fab='horizontal click-to-toggle userFAB' icon='menu' className='' large style={{"bottom": '45px', "right": '24px'}}>
