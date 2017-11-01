@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Input, Button, Icon, Row, Col } from 'react-materialize';
 import './LoginForm.css';
 import { Api } from '../../../lib/Api';
+import { toast } from 'react-toastify';
 
 class LoginForm extends Component {
     submitLogin () {
@@ -18,13 +19,14 @@ class LoginForm extends Component {
                         localStorage.setItem( 'user', JSON.stringify( response.data.user ) );
                         document.location = '/dashboard';
                     } else {
-                        alert( 'Sorry, login failed.' );
+                        toast.error( 'There was a problem registering: ' + response.data.error );
                     }
                 } )
                 .catch( ( err ) => {
-                    // throw new Error( err );
-                    console.log( err );
+                    toast.error( 'There was a problem registering: ' + err );
                 } );
+        } else {
+            toast.error( 'Please complete form.' );
         }
     }
 
@@ -46,11 +48,10 @@ class LoginForm extends Component {
                 <div className="center-align" id="loginFormBtn">
                     <Row>
                         <Col s={12} m={12}>
-                            {<Button className='loginSubmit' s={12} waves='light' onClick={this.submitLogin}>Submit<Icon left>cloud</Icon></Button>}
+                            {<Button className='loginSubmit' s={12} waves='light' onClick={this.submitLogin} type='button'>Submit<Icon left>cloud</Icon></Button>}
                         </Col>
                     </Row>
                 </div>
-
             </div>
         );
     }
