@@ -2,9 +2,11 @@
     margin: auto;
     width: 50%;
     padding: 10px;
-    background: #e0e0e0;
+    background: #f4f2f2;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .savedBtn {
-    float: right;
+    float: left;
 }

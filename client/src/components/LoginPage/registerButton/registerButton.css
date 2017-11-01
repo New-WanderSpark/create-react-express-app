@@ -3,3 +3,9 @@
     margin-top: 10px;
     margin-right: 10px;
 }
+
+@media only screen and (max-width: 682px) {
+    .registerBtn {
+        margin-bottom: 10px;
+    }
+}
