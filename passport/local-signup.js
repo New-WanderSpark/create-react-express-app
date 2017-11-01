@@ -43,10 +43,10 @@ module.exports = new PassportLocalStrategy( {
                     return done( 'Could not create trip.' );
                 }
 
-                return done();
+                return done( null );
             } );
+        } else {
+            return done( null );
         }
-
-        return done( null );
     } );
 } );
