@@ -1,17 +1,20 @@
 import React from 'react';
-import { Card, CardTitle } from 'react-materialize';
+import { Card, CardTitle, Row, Col } from 'react-materialize';
 import PropTypes from 'prop-types';
+import RatingStars from '../RatingStars';
+import Button from './RemovePinBtn';
 
 // place holder image until google places photos api is integrated with app
 import placeHolderImg from './shibuya.png';
 
 const PlacePinCard = ( { place } ) => {
     const details = (
-        <ul>
-            <li>Stars: {place.stars}</li>
-            <li>Address: {place.address}</li>
-            <li>Phone: {place.phoneNumber}</li>
-        </ul>
+        <Row>
+            <Col s={12} className='center-align'><RatingStars stars={place.stars} /></Col>
+            <Col s={12} className='center-align'>Address: {place.address}</Col>
+            <Col s={12} className='center-align'>Phone: {place.phoneNumber}</Col>
+            <Col s={12} className='center-align'><Button>Unpin</Button></Col>
+        </Row>
     );
     const imgSrc = place.getImgUrl( '400', 1 ) || placeHolderImg;
 

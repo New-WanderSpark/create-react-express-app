@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import RatingStars from '../../../RatingStars';
+import { Row, Col } from 'react-materialize';
+import './ResultItem.css';
 
 // COMPONENTS
 import Button from './Button';
@@ -10,13 +13,15 @@ class ResultItem extends React.Component {
         const { place } = this.props;
         return (
             <li>
-                <p>Title: {place.title}</p>
-                <p>Stars: {place.stars}</p>
-                <p>Category: {place.categories[0]}</p>
-                <p>PlaceId: {place.placeId}</p>
-                <img src={place.getImgUrl()} />
-                <Button handleClick={this.props.handleViewClick}>View</Button>
-                <Button handleClick={this.props.handlePinClick}>Pin</Button>
+                <Row>
+                    <Col s={12} className='center-align' id='resultTitle'><p>{place.title}</p></Col>
+                    <Col s={12} className='center-align'><RatingStars stars={place.stars} /></Col>
+                    <Col s={12} className='center-align'><img src={place.getImgUrl()}/></Col>
+                    <Col s={12} className='center-align'>
+                        <Button handleClick={this.props.handleViewClick}>View</Button>
+                        <Button handleClick={this.props.handlePinClick}>Pin</Button>
+                    </Col>
+                </Row>
             </li>
         );
     }
