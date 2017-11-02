@@ -1,8 +1,9 @@
 import React from 'react';
 import { Card, CardTitle } from 'react-materialize';
+import PropTypes from 'prop-types';
 
 // place holder image until google places photos api is integrated with app
-import Shibuya from './shibuya.png';
+import placeHolderImg from './shibuya.png';
 
 const PlacePinCard = ( { place } ) => {
     const details = (
@@ -12,8 +13,10 @@ const PlacePinCard = ( { place } ) => {
             <li>Phone: {place.phoneNumber}</li>
         </ul>
     );
+    const imgSrc = place.getImgUrl( '400', 1 ) || placeHolderImg;
+
     return (
-        <Card header={<CardTitle reveal image={Shibuya} waves='light'/>}
+        <Card header={<CardTitle reveal image={imgSrc} waves='light'/>}
             title={place.title}
             reveal={details}>
             <div>
@@ -25,4 +28,9 @@ const PlacePinCard = ( { place } ) => {
         </Card>
     );
 };
+
+PlacePinCard.propTypes = {
+    'place': PropTypes.object
+};
+
 export default PlacePinCard;
