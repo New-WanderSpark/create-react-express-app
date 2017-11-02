@@ -21,7 +21,9 @@ const tripSchema = new Schema( {
         'default': Date.now
     },
     'ownerId': {
-        'type': Schema.Types.ObjectId,
+        // 'type': Schema.Types.ObjectId,
+        // 'ref': 'User',
+        'type': String,
         'required': true
     }
 } );

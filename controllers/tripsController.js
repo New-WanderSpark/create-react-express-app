@@ -1,3 +1,4 @@
+const mongoose = require( 'mongoose' );
 const Trip = require( '../models/trips' );
 
 // Defining methods for the tripsController
