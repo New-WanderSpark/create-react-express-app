@@ -4,13 +4,16 @@ import FlatButton from 'material-ui/FlatButton';
 import PropTypes from 'prop-types';
 import PlaceData from '../../lib/PlaceData';
 import { Row, Col } from 'react-materialize';
+import PlaceInfo from './PlaceInfo';
+import RatingStars from './RatingStars';
 
 /**
  * A modal dialog can only be closed by selecting one of the actions.
  */
 class ViewPlaceDialog extends React.Component {
     render () {
-        console.log( this.props.place );
+        const { place } = this.props;
+        const hasValidPlace = place ? Boolean( place.placeId && place.title && place.geometry ) : false;
         const actions = [
             <FlatButton
                 key="closeBtn"
@@ -21,31 +24,44 @@ class ViewPlaceDialog extends React.Component {
                 key="pinBtn"
                 label="Pin"
                 primary={true}
-                onClick={() => this.props.handlePin( this.props.place )}
+                onClick={() => this.props.handlePin( place )}
             />
         ];
-        const hasValidPlace = Boolean( this.props.place );
-        const image = <img 
-            src={hasValidPlace ? this.props.place.getImgUrl() : ''}
+        const image = <img
+            src={hasValidPlace ? place.getImgUrl() : ''}
             className='img-responsive z-depth-3'
             style={{'maxHeight': '250px'}}
         />;
-        const imageStyles = {
-            'width': '100%',
-            'maxHeight': '50%'
-        };
+        const title = <h3>{hasValidPlace ? place.title : ''}</h3>;
+        const info = hasValidPlace ? <PlaceInfo address={place.address} phone={place.phoneNumber} url={place.url} /> : '';
+        const stars = hasValidPlace ? <RatingStars stars={place.stars} /> : '';
 
         return (
             <Dialog
                 actions={actions}
                 modal={false}
+                autoScrollBodyContent={true}
                 open={this.props.open}
             >
-                <Row><Col s={12} className='center-align white'>{image}</Col></Row>
-                
-                {/* hasValidPlace ? <pre>{JSON.stringify( this.props.place, null, 2 )}</pre> : 'No Place Selected' */}
+                <Row>
+                    <Col s={12} className='center-align'>{image}</Col>
+                </Row>
+                <Row>
+                    <Col s={12} className='center-align'>
+                        {title}
+                    </Col>
+                </Row>
+                <Row>
+                    <Col s={12} className='center-align'>
+                        {stars}
+                    </Col>
+                </Row>
+                <Row>
+                    <Col s={12} className='center-align'>
+                        {info}
+                    </Col>
+                </Row>
             </Dialog>
-
         );
     }
 }
