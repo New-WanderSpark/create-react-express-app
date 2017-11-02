@@ -11,6 +11,9 @@ import About from './About/About';
 import Footer from '../Footer';
 
 class LoginPage extends Component {
+    goToForm () {
+        document.getElementById( 'form' ).scrollIntoView( { 'behavior': 'smooth' } );
+    }
     render () {
         return (
             <div>
@@ -19,16 +22,17 @@ class LoginPage extends Component {
                         <Logo />
                     </Col>
                     <Col s={6} m={6} l={6}>
-                        <LoginButton />
-                        <RegisterButton />
+                        <LoginButton onClick={this.goToForm.bind( this )} />
+                        <RegisterButton onClick={this.goToForm.bind( this )} />
                     </Col>
                 </Row>
                 <About />
-                <Switch>
-                    {/* WHATS WRONG??? if you switch order of login and / the components no longer load */}
-                    <Route path='/login' component={LoginForm}/>
-                    <Route path='/' component={RegisterForm}/>
-                </Switch>
+                <div id='form'>
+                    <Switch>
+                        <Route path='/login' component={LoginForm}/>
+                        <Route path='/' component={RegisterForm}/>
+                    </Switch>
+                </div>
                 <Footer />
             </div>
         );
