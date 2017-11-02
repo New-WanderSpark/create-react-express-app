@@ -56,10 +56,6 @@ class RegisterForm extends Component {
             Api
                 .register( formData )
                 .then( ( response ) => {
-                    /**
-                     * TODO: add redirect to login page.
-                     */
-
                     if ( response.data.success ) {
                         toast.success( 'You have successfully registered!' );
                         this.props.history.push( '/login' );

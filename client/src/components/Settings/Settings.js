@@ -33,6 +33,14 @@ class Settings extends Component {
                 formData[name] = value;
             };
 
+            /**
+             * Check form for values
+             */
+            if ( !Object.keys( formData ).length ) {
+                toast.error( 'Please fill in your information to update' );
+                return false;
+            };
+
             /*
             * Check for password
             */ 
