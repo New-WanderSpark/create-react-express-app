@@ -68,26 +68,27 @@ class Settings extends Component {
             Api
                 .updateUser( userObj )
                 .then( ( response ) => {
-                    /**
-                     * Check for trip name change
-                     */
-                    if ( formData.tripName ) {
-                        // Api
-                        //     .updateTripName( formData.tripName )
-                        //     .then( ( response ) => {
+                    // /**
+                    //  * Check for trip name change
+                    //  */
+                    // if ( formData.tripName ) {
+                    //     Api
+                    //         .updateTripName( formData.tripName )
+                    //         .then( ( response ) => {
 
-                        //     } )
-                        //     .catch();
-                    }
+                    //         } )
+                    //         .catch();
+                    // }
 
-                    if ( response.data.success ) {
+                    if ( response.status === 200 ) {
                         toast.success( 'User settings updated.' );
                     } else {
-                        toast.error( 'There was a problem saving your settings: ' + response.data.error );
+                        toast.error( 'There was a problem saving your settings: ' + response.error );
                     }
                 } )
                 .catch( ( err ) => {
-                    toast.error( 'There was a problem saving your settings: ' + err );
+                    toast.error( 'There was a problem saving your settings: ' + err.response.data.error );
+                    console.log( err.response );
                 } );
         } else {
             toast.error( 'No form found.' );
@@ -97,11 +98,11 @@ class Settings extends Component {
     render () {
         return (
             <div className="changeForm" id="settingsForm">
-                <Row>
+                {/* <Row>
                     <Col s={12} m={12}>
                         <Input s={12} name="tripName" data-name="tripName" label="Change name of trip" validate><Icon>airplanemode_active</Icon></Input>
                     </Col>
-                </Row>
+                </Row> */}
 
                 <Row>
                     <Col s={12} m={12}>
@@ -117,7 +118,7 @@ class Settings extends Component {
 
                 <Row>
                     <Col s={12} m={12}>
-                        <Input s={12} name="email" data-name="email" label="Change Email" validate><Icon>email</Icon></Input>
+                        <Input s={12} name="email" type="email" data-name="email" label="Change Email" validate><Icon>email</Icon></Input>
                     </Col>
                 </Row>
 

@@ -54,7 +54,7 @@ export const Api = {
             return Promise.reject( new Error( 'User object contains no data.' ) );
         }
 
-        return axiosInstance.put( '/api/user', userObj );
+        return axiosInstance.put( '/api/users', userObj );
     },
 
     /**
@@ -80,12 +80,12 @@ export const Api = {
      * 
      * @param {string} tripName 
      */
-    updateTripName ( tripName ) {
+    updateTripName ( tripId, tripName ) {
         if ( !tripName ) {
             return Promise.reject( new Error( 'tripName is a required field.' ) );
         }
 
-        return axiosInstance.put( '/api/trips', tripName );
+        return axiosInstance.put( '/api/trips/' + tripId, tripName );
     },
 
     /**

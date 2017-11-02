@@ -34,7 +34,7 @@ module.exports = ( req, res, next ) => {
                 return res.status( 401 ).end();
             }
 
-            res.user = user;
+            req.user = user;
 
             return next();
         } );
