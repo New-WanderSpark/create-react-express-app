@@ -1,5 +1,5 @@
 // This component is a presentatial component which renders a button
-// in the context of a result from the places search. ('View' or 'Pin')
+// in the context of the removal of a pin. ('Remove')
 
 import React from 'react';
 import { Button as MaterializeBtn } from 'react-materialize';
