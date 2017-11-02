@@ -1,5 +1,6 @@
 import React from 'react';
+import { Button as MaterializeBtn } from 'react-materialize';
 
 export default function SubmitBtn ( props ) {
-    return <button type="submit" onClick={props.handleClick}>Search</button>;
+    return <MaterializeBtn waves='light' type="submit" onClick={props.handleClick}>Search</MaterializeBtn>;
 }

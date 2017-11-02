@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import PlaceData from '../../lib/PlaceData';
 import { Row, Col } from 'react-materialize';
 import PlaceInfo from './PlaceInfo';
-import RatingStars from './RatingStars';
+import RatingStars from '../RatingStars';
 
 /**
  * A modal dialog can only be closed by selecting one of the actions.
