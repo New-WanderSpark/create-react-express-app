@@ -29,4 +29,20 @@ export default class PlaceData {
         this.url = googlePlaceDetails.website || 'unavailable';
         this.detailsLoaded = true;
     }
+
+    /**
+     * Returns a url for an image from the photos property
+     * 
+     * @param {string} maxWidth - max width of img in pixels, default is 400
+     * @param {integer} photo - ordinal for photo object in photos array
+     * 
+     * @returns {string} - url for google place photo api or empty string if no photo
+     */
+    getImgUrl ( maxWidth = '400' ) {
+        // return empty string if there are no photos
+        if ( !this.photos.length ) return '';
+
+        const photoRef = this.photos[0].photo_reference;
+        return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${maxWidth}&photoreference=${photoRef}&key=AIzaSyAHO4q-p7lzrf6zVUXcifYSEDwAz4p5Dds`;
+    }
 }
