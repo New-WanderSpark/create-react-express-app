@@ -34,6 +34,8 @@ module.exports = ( req, res, next ) => {
                 return res.status( 401 ).end();
             }
 
+            res.user = user;
+
             return next();
         } );
     } );
