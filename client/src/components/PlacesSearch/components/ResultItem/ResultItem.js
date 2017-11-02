@@ -16,7 +16,7 @@ class ResultItem extends React.Component {
                 <Row>
                     <Col s={12} className='center-align' id='resultTitle'><p>{place.title}</p></Col>
                     <Col s={12} className='center-align'><RatingStars stars={place.stars} /></Col>
-                    <Col s={12} className='center-align'><img src={place.getImgUrl()}/></Col>
+                    <Col s={12} className='center-align'><img className='responsive-img' src={place.getImgUrl()}/></Col>
                     <Col s={12} className='center-align'>
                         <Button handleClick={this.props.handleViewClick}>View</Button>
                         <Button handleClick={this.props.handlePinClick}>Pin</Button>
