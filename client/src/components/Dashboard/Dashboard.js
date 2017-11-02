@@ -24,7 +24,7 @@ class Dashboard extends Component {
             'mapMarkers': [],
             'placeDialogOpen': false,
             'pinnedPlaces': [], // array of PlaceData instances
-            'selectedPlace': {},
+            'selectedPlace': null,
             'tripId': ''
         };
 
