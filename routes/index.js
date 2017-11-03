@@ -15,7 +15,7 @@ router.use( '/api/trips', trips );
 router.use( '/api/places', places );
 
 // If no API routes are hit, send the React app
-router.use( ( req, res ) => {
+router.use( '/*', ( req, res ) => {
     if ( process.env.NODE_ENV === 'production' ) {
         res.sendFile( path.join( __dirname, '../client/build/index.html' ) );
     } else {
