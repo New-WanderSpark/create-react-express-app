@@ -63,8 +63,8 @@ class RegisterForm extends Component {
                         toast.error( 'There was a problem registering: ' + response.data.error );
                     }
                 } )
-                .catch( ( err ) => {
-                    toast.error( 'There was a problem registering: ' + err );
+                .catch( ( err, response ) => {
+                    toast.error( 'There was a problem registering: ' + err.response.data.error );
                 } );
         } else {
             console.log( 'No form found.' );

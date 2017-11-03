@@ -3,6 +3,7 @@ import { Button, Icon, Row, Input, Col } from 'react-materialize';
 import './Settings.css';
 import { Api } from '../../lib/Api';
 import { toast } from 'react-toastify';
+import { ReactDOM } from 'react-dom';
 
 class Settings extends Component {
     /**
@@ -23,14 +24,11 @@ class Settings extends Component {
              */
             for ( let i = 0; i < formElements.length; i++ ) {
                 let name = formElements[i].getAttribute( 'name' );
-                // let formatedName = formElements[i].getAttribute( 'data-name' );
                 let value = formElements[i].getAttribute( 'value' );
 
-                // if ( !value ) {
-                //     errors.push( formatedName + ' is a required field.' );
-                // }
-
-                formData[name] = value;
+                if ( value ) {
+                    formData[name] = value;
+                }
             };
 
             /**
@@ -90,13 +88,19 @@ class Settings extends Component {
 
                     if ( response.status === 200 ) {
                         toast.success( 'User settings updated.' );
+
+                        for ( let i = 0; i <= formElements.length; i++ ) {
+                            if ( formElements[i] ) {
+                                formElements[i].value = '';
+                            }
+                        }
                     } else {
                         toast.error( 'There was a problem saving your settings: ' + response.error );
                     }
                 } )
-                .catch( ( err ) => {
-                    toast.error( 'There was a problem saving your settings: ' + err.response.data.error );
-                    console.log( err.response );
+                .catch( ( err, response ) => {
+                    toast.error( 'There was a problem saving your settings: ' );
+                    console.log( 'settings err', err );
                 } );
         } else {
             toast.error( 'No form found.' );
