@@ -104,9 +104,7 @@ router.post( '/register', ( req, res, next ) => {
                 return res.status( 409 ).json( {
                     'success': false,
                     'message': 'Check the form for errors.',
-                    'errors': {
-                        'email': 'This email is already taken.'
-                    }
+                    'error': 'This username or email is already taken.'
                 } );
             }
 

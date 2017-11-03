@@ -4,20 +4,14 @@ const usersController = require( '../controllers/usersController' );
 
 router.use( '/*', bodyParser.json() );
 
-// Route matches with "api/users"
+/**
+ * User endpoints don't need the ID as it is in the JWT and is more 
+ * secure retrieving from the server side.
+ */
 router
     .route( '/' )
-    .post( usersController.create );
-
-// Route matches with "api/users/login"
-// router
-//     .route( '/login' )
-//     .post( usersController.findOne );
-
-// Route matches with "api/users/:id"
-router
-    .route( '/:id' )
     .put( usersController.update )
+    .post( usersController.create )
     .delete( usersController.remove );
 
 module.exports = router;

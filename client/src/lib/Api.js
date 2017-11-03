@@ -37,17 +37,24 @@ export const Api = {
      */
     register ( registrationData ) {
         if ( !registrationData ) {
-            throw new Error( 'No registration data passed.' );
+            return Promise.reject( new Error( 'No registration data passed.' ) );
         }
 
         return axiosInstance.post( '/register', registrationData );
     },
     login ( loginObj ) {
         if ( !loginObj || !loginObj.userName || !loginObj.password ) {
-            throw new Error( 'Login information is incomplete.' );
+            return Promise.reject( new Error( 'Login information is incomplete.' ) );
         }
 
         return axiosInstance.post( '/login', loginObj );
+    },
+    updateUser ( userObj ) {
+        if ( !userObj ) {
+            return Promise.reject( new Error( 'User object contains no data.' ) );
+        }
+
+        return axiosInstance.put( '/api/users', userObj );
     },
 
     /**
@@ -65,7 +72,20 @@ export const Api = {
             return Promise.reject( new Error( 'userId is a required field.' ) );
         }
 
-        return axiosInstance.post( `/api/trips`, { 'ownerId': userId } );
+        return axiosInstance.post( '/api/trips', { 'ownerId': userId } );
+    },
+
+    /**
+     * Only alling update to name for now.
+     * 
+     * @param {string} tripName 
+     */
+    updateTripName ( tripId, tripName ) {
+        if ( !tripName ) {
+            return Promise.reject( new Error( 'tripName is a required field.' ) );
+        }
+
+        return axiosInstance.put( '/api/trips/' + tripId, tripName );
     },
 
     /**

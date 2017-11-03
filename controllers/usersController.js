@@ -1,4 +1,5 @@
 const User = require( '../models/users' );
+const bcrypt = require( 'bcrypt' );
 
 // Defining methods for the tripsController
 module.exports = {
@@ -9,14 +10,26 @@ module.exports = {
             .catch( err => res.status( 422 ).json( err ) );
     },
     'update': function ( req, res ) {
+        if ( req.body.password ) {
+            if ( req.body.password.length < 8 ) {
+                return res.status( 422 ).json( { 'status': 422, 'error': 'Password must be at least 8 characters.' } );
+            }
+
+            /**
+             * Doing this here since it's working in the model hook
+             */
+            let salt = bcrypt.genSaltSync();
+            req.body.password = bcrypt.hashSync( req.body.password, salt );
+        }
+
         User
-            .findOneAndUpdate( { '_id': req.params.id }, req.body )
+            .findOneAndUpdate( { '_id': req.user._id }, req.body )
             .then( dbModel => res.json( dbModel ) )
             .catch( err => res.status( 422 ).json( err ) );
     },
     'remove': function ( req, res ) {
         User
-            .findById( { '_id': req.params.id } )
+            .findById( { '_id': req.user._id } )
             .then( dbModel => dbModel.remove() )
             .then( dbModel => res.json( dbModel ) )
             .catch( err => res.status( 422 ).json( err ) );
