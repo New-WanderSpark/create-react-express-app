@@ -99,8 +99,7 @@ class Settings extends Component {
                     }
                 } )
                 .catch( ( err, response ) => {
-                    toast.error( 'There was a problem saving your settings: ' );
-                    console.log( 'settings err', err );
+                    toast.error( 'There was a problem saving your settings: ', err.response.data.error );
                 } );
         } else {
             toast.error( 'No form found.' );

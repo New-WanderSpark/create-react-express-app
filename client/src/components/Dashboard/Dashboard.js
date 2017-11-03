@@ -20,6 +20,7 @@ class Dashboard extends Component {
     constructor () {
         super();
         const userId = JSON.parse( window.localStorage.getItem( 'user' ) ).userId;
+
         this.state = {
             'mapMarkers': [],
             'placeDialogOpen': false,

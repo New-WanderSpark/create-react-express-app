@@ -23,7 +23,7 @@ module.exports = {
         }
 
         User
-            .findOneAndUpdate( { '_id': req.user._id }, req.body )
+            .findOneAndUpdate( { '_id': req.user._id }, req.body, {'new': true} )
             .then( dbModel => res.json( dbModel ) )
             .catch( err => res.status( 422 ).json( err ) );
     },
