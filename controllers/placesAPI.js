@@ -1,8 +1,7 @@
 const axios = require( 'axios' );
 
 // set to true to use example files for google api instead of sending requests
-// (use for front end development)
-const USE_MOCK = Boolean( process.env.USE_GOOGLE_API_MOCK );
+const USE_MOCK = Boolean( process.env.USE_GOOGLE_API_MOCK === 'true' );
 const mocks = require( './placesAPIexamples' );
 if ( USE_MOCK ) {
     console.log( 'Using mockups for the Google API requests.' );
