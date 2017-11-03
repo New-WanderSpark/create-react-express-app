@@ -7,31 +7,35 @@ if ( process.env.NODE_ENV === 'production' ) {
 }
 
 /**
- * Init the axios config objext.
- */
-const axiosConfig = {
-    'baseURL': baseUrl,
-    'responseType': 'json',
-    'headers': {}
-};
-
-/**
- * Check for JWT
- */
-const jwt = localStorage.getItem( 'jwt' ) || null;
-if ( jwt ) {
-    axiosConfig.headers.Authorization = `jwt ${jwt}`;
-}
-
-/**
- * Create the axios instance with the config object.
- */
-const axiosInstance = axios.create( axiosConfig );
-
-/**
  * Export main Api
  */
 export const Api = {
+    'axiosInstance': null,
+    init () {
+        /**
+         * Init the axios config objext.
+         */
+        const axiosConfig = {
+            'baseURL': baseUrl,
+            'responseType': 'json',
+            'headers': {}
+        };
+
+        /**
+         * Check for JWT
+         */
+        const jwt = localStorage.getItem( 'jwt' ) || null;
+        if ( jwt ) {
+            axiosConfig.headers.Authorization = `jwt ${jwt}`;
+        }
+
+        /**
+         * Create the axios instance with the config object.
+         */
+        this.axiosInstance = axios.create( axiosConfig );
+
+        return this;
+    },
     /**
      * Auth calls
      */
@@ -39,22 +43,22 @@ export const Api = {
         if ( !registrationData ) {
             return Promise.reject( new Error( 'No registration data passed.' ) );
         }
-
-        return axiosInstance.post( '/register', registrationData );
+        this.init();
+        return this.axiosInstance.post( '/register', registrationData );
     },
     login ( loginObj ) {
         if ( !loginObj || !loginObj.userName || !loginObj.password ) {
             return Promise.reject( new Error( 'Login information is incomplete.' ) );
         }
-
-        return axiosInstance.post( '/login', loginObj );
+        this.init();
+        return this.axiosInstance.post( '/login', loginObj );
     },
     updateUser ( userObj ) {
         if ( !userObj ) {
             return Promise.reject( new Error( 'User object contains no data.' ) );
         }
-
-        return axiosInstance.put( '/api/users', userObj );
+        this.init();
+        return this.axiosInstance.put( '/api/users', userObj );
     },
 
     /**
@@ -64,15 +68,15 @@ export const Api = {
         if ( !tripId || !placeIds ) {
             return Promise.reject( new Error( 'tripId and placesId are required fields.' ) );
         }
-
-        return axiosInstance.put( `/api/trips/${tripId}`, { placeIds } );
+        this.init();
+        return this.axiosInstance.put( `/api/trips/${tripId}`, { placeIds } );
     },
     getTripData ( userId ) {
         if ( !userId ) {
             return Promise.reject( new Error( 'userId is a required field.' ) );
         }
-
-        return axiosInstance.post( '/api/trips', { 'ownerId': userId } );
+        this.init();
+        return this.axiosInstance.post( '/api/trips', { 'ownerId': userId } );
     },
 
     /**
@@ -84,8 +88,8 @@ export const Api = {
         if ( !tripName ) {
             return Promise.reject( new Error( 'tripName is a required field.' ) );
         }
-
-        return axiosInstance.put( '/api/trips/' + tripId, tripName );
+        this.init();
+        return this.axiosInstance.put( '/api/trips/' + tripId, tripName );
     },
 
     /**
@@ -95,14 +99,14 @@ export const Api = {
         if ( !placeid ) {
             return Promise.reject( new Error( 'placeid is a required field.' ) );
         }
-
-        return axiosInstance.post( '/api/places/details', { placeid } );
+        this.init();
+        return this.axiosInstance.post( '/api/places/details', { placeid } );
     },
     textSearch ( queryString ) {
         if ( !queryString || queryString.length < 3 ) {
             return Promise.reject( new Error( 'placeid is a required field.' ) );
         }
-
-        return axiosInstance.get( `/api/places/search/${queryString}` );
+        this.init();
+        return this.axiosInstance.get( `/api/places/search/${queryString}` );
     }
 };

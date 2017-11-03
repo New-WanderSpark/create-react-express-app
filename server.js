@@ -4,7 +4,6 @@ const mongoose = require( 'mongoose' );
 const logger = require( 'morgan' );
 const routes = require( './routes' );
 const passport = require( 'passport' );
-const config = require( './config' );
 const path = require( 'path' );
 
 /*
@@ -61,5 +60,4 @@ if ( process.env.NODE_ENV === 'production' ) {
 
 app.listen( PORT, () => {
     console.log( `🌎 ==> Server now on port ${PORT}!` );
-    console.log( `` );
 } );
