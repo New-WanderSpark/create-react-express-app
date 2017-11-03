@@ -5,6 +5,7 @@ const logger = require( 'morgan' );
 const routes = require( './routes' );
 const passport = require( 'passport' );
 const config = require( './config' );
+const path = require( 'path' );
 
 /*
 * Configure Express Sever
@@ -52,6 +53,7 @@ mongoose.connect(
 /*
 * Setup routing
 */ 
+app.use( express.static( path.join( __dirname, 'client/build' ) ) );
 app.use( '/', routes );
 if ( process.env.NODE_ENV === 'production' ) {
     app.use( express.static( 'client/build' ) );
@@ -59,4 +61,5 @@ if ( process.env.NODE_ENV === 'production' ) {
 
 app.listen( PORT, () => {
     console.log( `🌎 ==> Server now on port ${PORT}!` );
+    console.log( `` );
 } );
