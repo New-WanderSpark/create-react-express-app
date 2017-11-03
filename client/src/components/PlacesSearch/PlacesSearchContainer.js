@@ -14,8 +14,7 @@ class PlacesSearchContainer extends Component {
     constructor ( props ) {
         super( props );
         this.state = {
-            // use hardcoded initial searchValue for development
-            'searchValue': 'art galleries in Paris, France'
+            'searchValue': ''
         };
     }
 
@@ -48,8 +47,6 @@ class PlacesSearchContainer extends Component {
     render () {
         return (
             <div>
-                {/* notes to render for development */}
-                <p>Search is hard coded for testing. Will not work if you use search terms other than the default value when the page loads.</p>
                 <SearchForm
                     searchValue={this.state.searchValue}
                     handleSubmit={event => this.handleSubmit( event )}
