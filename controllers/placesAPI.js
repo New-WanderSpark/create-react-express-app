@@ -1,9 +1,11 @@
 const axios = require( 'axios' );
 
 // set to true to use example files for google api instead of sending requests
-// (use for front end development)
-const USE_MOCK = true;
+const USE_MOCK = Boolean( process.env.USE_GOOGLE_API_MOCK === 'true' );
 const mocks = require( './placesAPIexamples' );
+if ( USE_MOCK ) {
+    console.log( 'Using mockups for the Google API requests.' );
+}
 
 // Controller for the google places api
 const key = 'AIzaSyAHO4q-p7lzrf6zVUXcifYSEDwAz4p5Dds';
